@@ -1,9 +1,18 @@
 /// <reference types="react-scripts" />
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 
 =======
 >>>>>>> d4a126d (Added weather icons and interfaces for the overlays)
+=======
+<<<<<<< HEAD
+=======
+
+=======
+>>>>>>> d4a126d (Added weather icons and interfaces for the overlays)
+>>>>>>> 101b3b2 (Added weather icons and interfaces for the overlays)
+>>>>>>> 8be973a (Added weather icons and interfaces for the overlays)
 declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production' | 'test';
@@ -108,9 +117,18 @@ declare module '*.module.sass' {
   const classes: { readonly [key: string]: string };
   export default classes;
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 8be973a (Added weather icons and interfaces for the overlays)
 =======
 declare module '*.module.sass' {
   const classes: { readonly [key: string]: string };
   export default classes;
 }
 >>>>>>> d4a126d (Added weather icons and interfaces for the overlays)
+<<<<<<< HEAD
+=======
+>>>>>>> 101b3b2 (Added weather icons and interfaces for the overlays)
+>>>>>>> 8be973a (Added weather icons and interfaces for the overlays)
