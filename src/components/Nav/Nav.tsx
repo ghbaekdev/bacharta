@@ -17,6 +17,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { KakaoProfile, KakaoToken, LoadingState } from '../../store/store';
+import { getKakaoProfile, kakaoUserLogout } from '../../api/apis';
 
 const pages = ['Home', 'Maps', 'OutFits'];
 const settings = ['Profile', 'Account', 'Logout'];
@@ -30,9 +31,10 @@ const Nav = () => {
   );
   const kakaoToken = localStorage.getItem('access_token');
   const navigate = useNavigate();
-  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const LOGOUT_REDIRECT_URI = process.env.REACT_APP_LOGOUT_REDIRECT_URI;
+
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [token, setToken] = useRecoilState(KakaoToken);
   const [profile, setProfile] = useRecoilState(KakaoProfile);
@@ -85,9 +87,7 @@ const Nav = () => {
   const kakaoLogout = (setting: string) => {
     setLoading(!loading);
     if (setting === 'Logout') {
-      axios.get(
-        `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`
-      );
+      kakaoUserLogout();
       localStorage.removeItem('access_token');
       alert('로그아웃됨');
       navigate('/');
@@ -97,14 +97,9 @@ const Nav = () => {
   };
 
   const getProfile = async () => {
-    await axios
-      .get('https://kapi.kakao.com/v2/user/me', {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setProfile(res.data.kakao_account.profile));
+    await getKakaoProfile().then((res) =>
+      setProfile(res.data.kakao_account.profile)
+    );
   };
 
   useEffect(() => {

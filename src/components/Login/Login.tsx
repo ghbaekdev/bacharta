@@ -5,6 +5,7 @@ import qs from 'qs';
 import { useRecoilState } from 'recoil';
 import { KakaoProfile, KakaoToken, LoadingState } from '../../store/store';
 import Loading from '../Loading/Loading';
+import { getToken } from '../../api/apis';
 
 const Login = () => {
   const location = useLocation();
@@ -30,10 +31,7 @@ const Login = () => {
 
   const getKakaoToken = async () => {
     setLoading(!loading);
-    await axios
-      .post('https://kauth.kakao.com/oauth/token', data, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      })
+    await getToken(data)
       .then((res) => {
         if (res.data.access_token) {
           localStorage.setItem('access_token', res.data.access_token);
