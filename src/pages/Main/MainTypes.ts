@@ -17,11 +17,4 @@ export interface Dataset {
   lineTension: number;
 }
 
-export interface ExchageProps {
-  aplyBgnD: { _text: string };
-  cntySgn: { _text: string };
-  currSgn: { _text: string };
-  fxrt: { _text: string };
-  imexTp: { _text: string };
-  mtryUtNm: { _text: string };
-}
+export interface ExchageProps {}

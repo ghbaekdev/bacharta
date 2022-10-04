@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import ExchangeCard from './ExchangeCard';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import styled from "styled-components";
+import ExchangeCard from "./ExchangeCard";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 // import { ExchageProps } from './MainTypes';
 
 const ExChange = ({ exchangeData }: { exchangeData: any }) => {
@@ -15,15 +15,20 @@ const ExChange = ({ exchangeData }: { exchangeData: any }) => {
     nextArrow: <Bt />,
   };
 
+  interface ExchageProps {
+    cur_nm: string;
+    cur_unit: string;
+    kftc_bkpr: string;
+  }
   return (
     <ExchageContainer>
       <Slider {...settings}>
-        {exchangeData.map((exData: any, index: number) => (
+        {exchangeData.map(({ cur_nm, cur_unit, kftc_bkpr }: ExchageProps) => (
           <ExchangeCard
-            key={index}
-            nation={exData.cntySgn._text}
-            unit={exData.mtryUtNm._text}
-            price={exData.fxrt._text}
+            key={cur_nm}
+            nation={cur_nm}
+            unit={cur_unit}
+            price={kftc_bkpr}
           />
         ))}
       </Slider>

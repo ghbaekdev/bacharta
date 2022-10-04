@@ -1,30 +1,24 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-import CharContainer from './ChartContainer';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import TodayChartBox from './TodayChartBox';
-import Finance from '../../assets/Finance graph.png';
-import ExChange from './ExChange';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import styled from "styled-components";
+import CharContainer from "./ChartContainer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import TodayChartBox from "./TodayChartBox";
+import Finance from "../../assets/Finance graph.png";
+import ExChange from "./ExChange";
 
 const Main = () => {
-  const [exchangeData, setexchangeData] = useState([]);
+  const [exchangeData, setExchangeData] = useState([]);
   useEffect(() => {
     axios
-      .get('http://127.0.0.1:3001/exchange')
-      .then((res) =>
-        setexchangeData(
-          res.data.data.trifFxrtInfoQryRtnVo.trifFxrtInfoQryRsltVo
-        )
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+      .get("http://127.0.0.1:3001/exchange")
+      .then((res) => setExchangeData(res.data));
   }, []);
 
+  console.log(exchangeData);
   const clickDown = () => {
-    console.log('dd');
+    console.log("dd");
   };
   return (
     <>
@@ -35,9 +29,9 @@ const Main = () => {
               <BoxText>원하시는 통계를 차트로 확인하세요!</BoxText>
               <BoxText>수치로써 확인할 수 있습니다!</BoxText>
               <BoxText>날씨별 옷차림도 추천받아보세요!</BoxText>
-              <BoxText style={{ fontSize: '20px' }}>
+              <BoxText style={{ fontSize: "20px" }}>
                 {
-                  '여러분들이 원하는 차트가 있습니다! \n원하시는 통계를 차트로 확인하세요!'
+                  "여러분들이 원하는 차트가 있습니다! \n원하시는 통계를 차트로 확인하세요!"
                 }
               </BoxText>
               <ImageContainer>
@@ -53,7 +47,7 @@ const Main = () => {
 
         <TodayChartContainer>
           <TodayChartTitle>오늘의 차트 구경</TodayChartTitle>
-          <TodayChartBox exchangeData={exchangeData} />
+          <TodayChartBox />
           <TodayChartTitle>오늘의 환율 구경</TodayChartTitle>
 
           <ExChange exchangeData={exchangeData} />
