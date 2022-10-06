@@ -12,14 +12,28 @@ import Bar from "../../assets/Content 8.png";
 import ExChange from "./ExChange";
 
 const Main = () => {
-  const [exchangeData, setExchangeData] = useState([]);
+  interface ExchangProps {
+    bkpr: string;
+    cur_nm: string;
+    cur_unit: string;
+    deal_bas_r: string;
+    kftc_bkpr: string;
+    kftc_deal_bas_r: string;
+    result: number;
+    ten_dd_efee_r: string;
+    ttb: string;
+    tts: string;
+    yy_efee_r: string;
+  }
+  const [exchangeData, setExchangeData] = useState<ExchangProps[]>([]);
+
   useEffect(() => {
     axios
       .get("http://127.0.0.1:3001/exchange")
-      .then((res) => setExchangeData(res.data));
+      .then((res) => setExchangeData(res.data.data));
   }, []);
 
-  console.log(exchangeData);
+  console.log(exchangeData, "ex");
   const clickDown = () => {
     console.log("dd");
   };
@@ -57,7 +71,7 @@ const Main = () => {
           <TodayChartBox />
           <TodayChartTitle>오늘의 환율 구경</TodayChartTitle>
 
-          <ExChange />
+          <ExChange exchangeData={exchangeData} />
         </TodayChartContainer>
       </MainContainer>
     </>

@@ -54,29 +54,19 @@ const TodayChartBox = () => {
     rate7: string;
     rate8: string;
   }
-
   const [covidData, setCovidData] = useState<Array<CovidProps>>([]);
   useEffect(() => {
-    axios
-      .get(
-        "http://apis.data.go.kr/1790387/covid19CurrentStatusHospitalizations/covid19CurrentStatusHospitalizationsJson?serviceKey=bysiTnIodqH0ErfxzVpu1IAmohs9AmZfVu8rIUOVEQYVGV%2FmQ2rGrAg6%2Be9hooDIp%2FaSq8JlSYEgh7hWRuQs%2BA%3D%3D"
-      )
-      .then((res) => res.data)
-      .then((data) => setCovidData(data.response.result));
-    //일일 발생현황 cnt1,2,3,4,5,6,7
+    try {
+      axios
+        .get("http://127.0.0.1:3001/covid")
+        .then((res) => setCovidData(res.data.data));
+    } catch {
+      alert("데이터가 없습니다.");
+    }
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:3001/atmosphere")
-      .then((res) => res.data)
-      .then((data) => console.log(data.data));
-    //일일 발생현황 cnt1,2,3,4,5,6,7
-  }, []);
-
-  console.log(covidData.map((el) => console.log(el)));
   const lineOptions = {
-    responsive: false,
+    responsive: true,
     plugins: {
       legend: {
         position: "top" as const,
@@ -135,7 +125,7 @@ const TodayChartBox = () => {
         text: "주간 코로나 감염 발생자 추이",
       },
     },
-    responsive: false,
+    responsive: true,
     scales: {
       x: {
         stacked: true,
@@ -166,14 +156,14 @@ const TodayChartBox = () => {
         fill: true,
         label: "주간 코로나 환자 발생 추이",
         data: [
-          covidData[0].cnt1,
-          covidData[0].cnt2,
-          covidData[0].cnt3,
-          covidData[0].cnt4,
-          covidData[0].cnt5,
-          covidData[0].cnt6,
-          covidData[0].cnt7,
-          covidData[0].cnt8,
+          covidData[0]?.cnt1,
+          covidData[0]?.cnt2,
+          covidData[0]?.cnt3,
+          covidData[0]?.cnt4,
+          covidData[0]?.cnt5,
+          covidData[0]?.cnt6,
+          covidData[0]?.cnt7,
+          covidData[0]?.cnt8,
         ],
         backgroundColor: "rgb(99, 161, 255)",
       },
@@ -182,31 +172,36 @@ const TodayChartBox = () => {
 
   return (
     <>
-      <ChartContainer>
-        <Line
-          data={lineData}
-          options={lineOptions}
-          style={{
-            width: "500px",
-            height: "350px",
-            backgroundColor: "white",
-            boxShadow: "10px 5px 5px gray",
-            marginRight: "10px",
-          }}
-        />
+      {covidData.length === 0 ? (
+        "렌더링 안돼유"
+      ) : (
+        <>
+          <ChartContainer>
+            <Line
+              data={lineData}
+              options={lineOptions}
+              style={{
+                width: "650px",
+                height: "400px",
+                backgroundColor: "white",
+                boxShadow: "10px 5px 5px gray",
+              }}
+            />
 
-        <Line
-          data={barData}
-          options={barOptions}
-          style={{
-            width: "500",
-            height: "350px",
-            backgroundColor: "white",
-            boxShadow: "10px 5px 5px gray",
-            marginRight: "10px",
-          }}
-        />
-      </ChartContainer>
+            <Line
+              data={barData}
+              options={barOptions}
+              style={{
+                width: "650px",
+                height: "400px",
+                backgroundColor: "white",
+                boxShadow: "10px 5px 5px gray",
+                marginRight: "10px",
+              }}
+            />
+          </ChartContainer>
+        </>
+      )}
     </>
   );
 };
@@ -218,4 +213,5 @@ const ChartContainer = styled.div`
   justify-content: space-between;
   padding: 30px 70px;
   margin-bottom: 120px;
+  overflow: scroll;
 `;

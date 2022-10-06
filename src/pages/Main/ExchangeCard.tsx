@@ -1,16 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 interface ItemProps {
   nation: string;
   price: string;
   unit: string;
 }
-const ExchangeCard = ({ nation, price, unit }: ItemProps) => {
+const ExchangeCard = ({ unit, nation, price }: ItemProps) => {
   return (
     <ExchangeItem>
-      <ExchangeNation>{nation}</ExchangeNation>
-      <ExchangeNation>가격 : {price}</ExchangeNation>
-      <ExchangeNation>단위 : {unit}</ExchangeNation>
+      <ExchangeNation>국가 : {nation}</ExchangeNation>
+      <ExchangeNation>가격 : {price}원 </ExchangeNation>
+      <ExchangeNation>단위 : {unit} </ExchangeNation>
     </ExchangeItem>
   );
 };
@@ -22,9 +22,9 @@ const ExchangeItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: calc(100% - 60px);
+  margin: 0 30px;
   height: 300px;
-
   border: 1px solid black;
   box-shadow: 10px 5px 5px gray;
 `;
