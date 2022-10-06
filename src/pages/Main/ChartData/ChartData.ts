@@ -62,13 +62,15 @@ export const barOptions = {
 const date = new Date();
 const fullDay = (plusDay: number) =>
   `${date.getFullYear()}${
-    date.getMonth() < 10
-      ? `0${date.getMonth() + plusDay}`
-      : date.getMonth() + plusDay
-  }${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`;
+    date.getMonth() > 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+  }${
+    date.getDate() < 10
+      ? `0${date.getDate() + plusDay}`
+      : date.getDate() + plusDay
+  }`;
 
 const barLabels = new Array(7).fill("").map((arr, idx) => {
-  return fullDay(idx);
+  return fullDay(-6 + idx);
 });
 export const barData = {
   labels: barLabels,

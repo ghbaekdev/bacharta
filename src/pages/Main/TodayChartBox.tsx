@@ -1,46 +1,68 @@
 import styled from "styled-components";
-import { Line, Bar } from "react-chartjs-2";
-
+import { Line } from "react-chartjs-2";
+import { faker } from "@faker-js/faker";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
   PointElement,
   LineElement,
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from "chart.js";
-import { ExchageProps } from "./MainTypes";
-import {
-  lineOptions,
-  lineData,
-  barData,
-  barOptions,
-} from "./ChartData/ChartData";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
   PointElement,
   LineElement,
   Title,
   Tooltip,
+  Filler,
   Legend
 );
 
 const TodayChartBox = () => {
+  interface CovidProps {
+    cnt1: string;
+    cnt2: string;
+    cnt3: string;
+    cnt4: string;
+    cnt5: string;
+    cnt6: string;
+    cnt7: string;
+    cnt8: string;
+    mmdd1: string;
+    mmdd2: string;
+    mmdd3: string;
+    mmdd4: string;
+    mmdd5: string;
+    mmdd6: string;
+    mmdd7: string;
+    mmdd8: string;
+    mmddhh: string;
+    rate1: string;
+    rate2: string;
+    rate3: string;
+    rate4: string;
+    rate5: string;
+    rate6: string;
+    rate7: string;
+    rate8: string;
+  }
+
+  const [covidData, setCovidData] = useState<Array<CovidProps>>([]);
   useEffect(() => {
     axios
       .get(
         "http://apis.data.go.kr/1790387/covid19CurrentStatusHospitalizations/covid19CurrentStatusHospitalizationsJson?serviceKey=bysiTnIodqH0ErfxzVpu1IAmohs9AmZfVu8rIUOVEQYVGV%2FmQ2rGrAg6%2Be9hooDIp%2FaSq8JlSYEgh7hWRuQs%2BA%3D%3D"
       )
       .then((res) => res.data)
-      .then((data) => console.log(data.response.result, "data"));
+      .then((data) => setCovidData(data.response.result));
     //일일 발생현황 cnt1,2,3,4,5,6,7
   }, []);
 
@@ -48,9 +70,116 @@ const TodayChartBox = () => {
     axios
       .get("http://127.0.0.1:3001/atmosphere")
       .then((res) => res.data)
-      .then((data) => console.log(data, "이거누먼가"));
+      .then((data) => console.log(data.data));
     //일일 발생현황 cnt1,2,3,4,5,6,7
   }, []);
+
+  console.log(covidData.map((el) => console.log(el)));
+  const lineOptions = {
+    responsive: false,
+    plugins: {
+      legend: {
+        position: "top" as const,
+        labels: {
+          font: {
+            size: 15,
+          },
+        },
+      },
+      title: {
+        display: true,
+        text: "세계 나라의 환율 추이",
+      },
+    },
+  };
+
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+  ];
+
+  const lineData = {
+    labels,
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: labels.map(() =>
+          faker.datatype.number({ min: -1000, max: 1000 })
+        ),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "black",
+        font: {
+          size: 40,
+        },
+      },
+      {
+        label: "Dataset 2",
+        data: labels.map(() =>
+          faker.datatype.number({ min: -1000, max: 1000 })
+        ),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
+
+  const barOptions = {
+    plugins: {
+      title: {
+        display: true,
+        text: "주간 코로나 감염 발생자 추이",
+      },
+    },
+    responsive: false,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+  };
+
+  const date = new Date();
+  const fullDay = (plusDay: number) =>
+    `${date.getFullYear()}${
+      date.getMonth() > 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+    }${
+      date.getDate() < 10
+        ? `0${date.getDate() + plusDay}`
+        : date.getDate() + plusDay
+    }`;
+
+  const barLabels = new Array(7).fill("").map((arr, idx) => {
+    return fullDay(-5 + idx);
+  });
+  const barData = {
+    labels: barLabels,
+    datasets: [
+      {
+        fill: true,
+        label: "주간 코로나 환자 발생 추이",
+        data: [
+          covidData[0].cnt1,
+          covidData[0].cnt2,
+          covidData[0].cnt3,
+          covidData[0].cnt4,
+          covidData[0].cnt5,
+          covidData[0].cnt6,
+          covidData[0].cnt7,
+          covidData[0].cnt8,
+        ],
+        backgroundColor: "rgb(99, 161, 255)",
+      },
+    ],
+  };
+
   return (
     <>
       <ChartContainer>
@@ -58,7 +187,7 @@ const TodayChartBox = () => {
           data={lineData}
           options={lineOptions}
           style={{
-            width: "450px",
+            width: "500px",
             height: "350px",
             backgroundColor: "white",
             boxShadow: "10px 5px 5px gray",
@@ -66,11 +195,11 @@ const TodayChartBox = () => {
           }}
         />
 
-        <Bar
+        <Line
           data={barData}
           options={barOptions}
           style={{
-            width: "500px",
+            width: "500",
             height: "350px",
             backgroundColor: "white",
             boxShadow: "10px 5px 5px gray",

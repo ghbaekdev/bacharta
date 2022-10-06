@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import CharContainer from "./ChartContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import TodayChartBox from "./TodayChartBox";
 import Finance from "../../assets/Finance graph.png";
+import Cursor from "../../assets/Cursor.png";
+import Laptop from "../../assets/Laptop.png";
+import Bar from "../../assets/Content 8.png";
+
 import ExChange from "./ExChange";
 
 const Main = () => {
@@ -34,11 +37,15 @@ const Main = () => {
                   "여러분들이 원하는 차트가 있습니다! \n원하시는 통계를 차트로 확인하세요!"
                 }
               </BoxText>
-              <ImageContainer>
-                <MainImage src={Finance} />
-              </ImageContainer>
+              <ImageContainer></ImageContainer>
             </MainBoxTitle>
-            <CharContainer />
+            <SubImageContainer>
+              {" "}
+              <GraphImage src={Finance} />
+              <LaptopImage src={Laptop} />
+              <CursorImage src={Cursor} />
+              <BarImage src={Bar} />
+            </SubImageContainer>
           </MainBox>
           <ChevronBox>
             <FontAwesomeIcon onClick={clickDown} icon={faChevronDown} />
@@ -50,7 +57,7 @@ const Main = () => {
           <TodayChartBox />
           <TodayChartTitle>오늘의 환율 구경</TodayChartTitle>
 
-          <ExChange exchangeData={exchangeData} />
+          <ExChange />
         </TodayChartContainer>
       </MainContainer>
     </>
@@ -80,12 +87,43 @@ const MainBoxTitle = styled.div`
   white-space: pre-wrap;
 `;
 
-const MainImage = styled.img`
+const GraphImage = styled.img`
+  position: relative;
   width: 400px;
   height: 400px;
+  z-index: 3;
 `;
-const ImageContainer = styled.div``;
+const LaptopImage = styled(GraphImage)`
+  position: absolute;
+  bottom: 20px;
+  right: 200px;
+  z-index: 1;
+`;
+const CursorImage = styled.img`
+  position: absolute;
+  width: 100px;
+  top: 45%;
+  right: 30px;
+  z-index: 4;
+`;
+const BarImage = styled.img`
+  position: absolute;
+  width: 350px;
+  bottom: 50px;
+  right: 500px;
+  z-index: 2;
+`;
 
+const ImageContainer = styled.div`
+  background-color: red;
+`;
+
+const SubImageContainer = styled.div`
+  position: relative;
+  width: 500px;
+  height: 680px;
+  margin-top: 100px;
+`;
 const BoxText = styled.p`
   color: white;
   margin-bottom: 25px;
@@ -107,7 +145,7 @@ const ChevronBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
   color: white;
   height: 100px;
   font-size: 40px;

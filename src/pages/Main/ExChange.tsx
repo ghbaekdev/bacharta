@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import { ExchageProps } from './MainTypes';
 
-const ExChange = ({ exchangeData }: { exchangeData: any }) => {
+const ExChange = () => {
   const settings = {
     dots: false,
     infinite: false,
@@ -22,16 +22,7 @@ const ExChange = ({ exchangeData }: { exchangeData: any }) => {
   }
   return (
     <ExchageContainer>
-      <Slider {...settings}>
-        {exchangeData.map(({ cur_nm, cur_unit, kftc_bkpr }: ExchageProps) => (
-          <ExchangeCard
-            key={cur_nm}
-            nation={cur_nm}
-            unit={cur_unit}
-            price={kftc_bkpr}
-          />
-        ))}
-      </Slider>
+      <Slider {...settings}></Slider>
     </ExchageContainer>
   );
 };
