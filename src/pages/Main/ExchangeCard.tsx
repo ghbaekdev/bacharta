@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 interface ItemProps {
   nation: string;
@@ -32,4 +32,9 @@ const ExchangeItem = styled.div`
 const ExchangeNation = styled.div`
   margin: 10px;
   font-size: 20px;
+`;
+
+const Images = styled.img`
+  width: 30px;
+  height: 30px;
 `;

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
+import { Line, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,14 +7,17 @@ import {
   PointElement,
   LineElement,
   Title,
+  ArcElement,
   Tooltip,
   Legend,
   Filler,
 } from "chart.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 ChartJS.register(
+  ArcElement,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -54,18 +56,34 @@ const TodayChartBox = () => {
     rate7: string;
     rate8: string;
   }
+
+  interface CrimeProps {
+    "city-count": { _text: string };
+    "city-name": { _text: string };
+  }
   const [covidData, setCovidData] = useState<Array<CovidProps>>([]);
+  const [crimeData, setCrimeData] = useState<Array<CrimeProps>>([]);
+
   useEffect(() => {
     try {
       axios
         .get("http://127.0.0.1:3001/covid")
         .then((res) => setCovidData(res.data.data));
+      axios
+        .get("http://127.0.0.1:3001/crime")
+        .then((res) => setCrimeData(res.data.data.Result.City));
     } catch {
       alert("데이터가 없습니다.");
     }
   }, []);
 
-  const lineOptions = {
+  console.log(
+    crimeData.map((el) => {
+      return el["city-count"]._text;
+    }),
+    "cd"
+  );
+  const doughnutOptions = {
     responsive: true,
     plugins: {
       legend: {
@@ -78,42 +96,48 @@ const TodayChartBox = () => {
       },
       title: {
         display: true,
-        text: "세계 나라의 환율 추이",
-      },
-    },
-  };
-
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-
-  const lineData = {
-    labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "black",
+        text: "성범죄자 지역별 통계 ",
         font: {
           size: 40,
         },
       },
+    },
+  };
+
+  const labels = crimeData.map((el) => {
+    return el["city-name"]._text;
+  });
+
+  const doughnutData = {
+    labels,
+    datasets: [
       {
-        label: "Dataset 2",
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        label: "성범죄자 지역별 통계 ",
+        data: crimeData.map((el) => {
+          return el["city-count"]._text;
+        }),
+        borderColor: "black",
+        backgroundColor: [
+          "rgb(247, 25, 73)",
+          "rgb(217, 94, 0)",
+          "rgb(245, 188, 45)",
+          "rgb(100, 200, 78)",
+          "rgb(102, 173, 252)",
+          "rgb(96, 64, 255)",
+          "rgb(255, 206, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(153, 102, 252)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 206, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(153, 102, 252)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 99, 132)",
+          "rgb(17, 21, 217)",
+          "rgb(255, 206, 86)",
+          "rgb(75, 192, 192)",
+        ],
+        borderWidth: 1,
       },
     ],
   };
@@ -172,33 +196,37 @@ const TodayChartBox = () => {
 
   return (
     <>
-      {covidData.length === 0 ? (
+      {covidData.length === 0 && crimeData.length === 0 ? (
         "렌더링 안돼유"
       ) : (
         <>
           <ChartContainer>
-            <Line
-              data={lineData}
-              options={lineOptions}
-              style={{
-                width: "650px",
-                height: "400px",
-                backgroundColor: "white",
-                boxShadow: "10px 5px 5px gray",
-              }}
-            />
+            <ChartBox>
+              <Doughnut
+                data={doughnutData}
+                options={doughnutOptions}
+                style={{
+                  width: "650px",
+                  height: "300px",
+                  backgroundColor: "white",
+                  boxShadow: "10px 5px 5px gray",
+                }}
+              />
+            </ChartBox>
 
-            <Line
-              data={barData}
-              options={barOptions}
-              style={{
-                width: "650px",
-                height: "400px",
-                backgroundColor: "white",
-                boxShadow: "10px 5px 5px gray",
-                marginRight: "10px",
-              }}
-            />
+            <ChartBox>
+              <Line
+                data={barData}
+                options={barOptions}
+                style={{
+                  width: "650px",
+                  height: "600px",
+                  backgroundColor: "white",
+                  boxShadow: "10px 5px 5px gray",
+                  marginRight: "10px",
+                }}
+              />
+            </ChartBox>
           </ChartContainer>
         </>
       )}
@@ -214,4 +242,9 @@ const ChartContainer = styled.div`
   padding: 30px 70px;
   margin-bottom: 120px;
   overflow: scroll;
+`;
+
+const ChartBox = styled.div`
+  width: "650px";
+  height: "300px";
 `;
