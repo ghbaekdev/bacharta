@@ -1,4 +1,6 @@
-# pre-onboarding-assignment-week-4-1-team-12
+# bacharta
+
+#### OPEN API를 활용하여 미세먼지, 날씨, 날씨별 옷차림, 환율 등 생활 정보 제공 어플리케이션
 
 <br/>
 
