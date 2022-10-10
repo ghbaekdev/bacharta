@@ -11,6 +11,8 @@
 <br/>
 <br/>
 
+
+
 ## 팀원
 
 | 이름                                  | 역할       |
@@ -30,6 +32,7 @@
     <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=black">
     <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
      <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+     
 </div>
 
 <br/>
