@@ -1,100 +1,50 @@
-import { faker } from "@faker-js/faker";
+export interface CovidProps {
+  cnt1: string;
+  cnt2: string;
+  cnt3: string;
+  cnt4: string;
+  cnt5: string;
+  cnt6: string;
+  cnt7: string;
+  cnt8: string;
+  mmdd1: string;
+  mmdd2: string;
+  mmdd3: string;
+  mmdd4: string;
+  mmdd5: string;
+  mmdd6: string;
+  mmdd7: string;
+  mmdd8: string;
+  mmddhh: string;
+  rate1: string;
+  rate2: string;
+  rate3: string;
+  rate4: string;
+  rate5: string;
+  rate6: string;
+  rate7: string;
+  rate8: string;
+}
 
-export const lineOptions = {
-  responsive: false,
-  plugins: {
-    legend: {
-      position: "top" as const,
-      labels: {
-        font: {
-          size: 15,
-        },
-      },
-    },
-    title: {
-      display: true,
-      text: "세계 나라의 환율 추이",
-    },
-  },
-};
+export interface CrimeProps {
+  "city-count": { _text: string };
+  "city-name": { _text: string };
+}
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+export interface ExchangeProps {
+  bkpr: string;
+  cur_nm: string;
+  cur_unit: string;
+  deal_bas_r: string;
+  kftc_bkpr: string;
+  kftc_deal_bas_r: string;
+  result: number;
+  ten_dd_efee_r: string;
+  ttb: string;
+  tts: string;
+  yy_efee_r: string;
+}
 
-export const lineData = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "black",
-      font: {
-        size: 40,
-      },
-    },
-    {
-      label: "Dataset 2",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
-export const barOptions = {
-  plugins: {
-    title: {
-      display: true,
-      text: "주간 코로나 감염 발생자 추이",
-    },
-  },
-  responsive: true,
-  scales: {
-    x: {
-      stacked: true,
-    },
-    y: {
-      stacked: true,
-    },
-  },
-};
-
-const date = new Date();
-const fullDay = (plusDay: number) =>
-  `${date.getFullYear()}${
-    date.getMonth() > 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
-  }${
-    date.getDate() < 10
-      ? `0${date.getDate() + plusDay}`
-      : date.getDate() + plusDay
-  }`;
-
-const barLabels = new Array(7).fill("").map((arr, idx) => {
-  return fullDay(-6 + idx);
-});
-export const barData = {
-  labels: barLabels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: barLabels.map(() =>
-        faker.datatype.number({ min: -1000, max: 1000 })
-      ),
-      backgroundColor: "rgb(255, 99, 132)",
-    },
-    {
-      label: "Dataset 2",
-      data: barLabels.map(() =>
-        faker.datatype.number({ min: -1000, max: 1000 })
-      ),
-      backgroundColor: "rgb(75, 192, 192)",
-    },
-    {
-      label: "Dataset 3",
-      data: barLabels.map(() =>
-        faker.datatype.number({ min: -1000, max: 1000 })
-      ),
-      backgroundColor: "rgb(53, 162, 235)",
-    },
-  ],
-};
+export interface ExchangeArrayProps {
+  exchangeData: ExchangeProps[];
+}

@@ -14,7 +14,7 @@ import {
 } from "chart.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import { CovidProps, CrimeProps } from "./ChartData/ChartData";
 
 ChartJS.register(
   ArcElement,
@@ -29,38 +29,6 @@ ChartJS.register(
 );
 
 const TodayChartBox = () => {
-  interface CovidProps {
-    cnt1: string;
-    cnt2: string;
-    cnt3: string;
-    cnt4: string;
-    cnt5: string;
-    cnt6: string;
-    cnt7: string;
-    cnt8: string;
-    mmdd1: string;
-    mmdd2: string;
-    mmdd3: string;
-    mmdd4: string;
-    mmdd5: string;
-    mmdd6: string;
-    mmdd7: string;
-    mmdd8: string;
-    mmddhh: string;
-    rate1: string;
-    rate2: string;
-    rate3: string;
-    rate4: string;
-    rate5: string;
-    rate6: string;
-    rate7: string;
-    rate8: string;
-  }
-
-  interface CrimeProps {
-    "city-count": { _text: string };
-    "city-name": { _text: string };
-  }
   const [covidData, setCovidData] = useState<Array<CovidProps>>([]);
   const [crimeData, setCrimeData] = useState<Array<CrimeProps>>([]);
 
@@ -77,12 +45,6 @@ const TodayChartBox = () => {
     }
   }, []);
 
-  console.log(
-    crimeData.map((el) => {
-      return el["city-count"]._text;
-    }),
-    "cd"
-  );
   const doughnutOptions = {
     responsive: true,
     plugins: {
@@ -104,18 +66,22 @@ const TodayChartBox = () => {
     },
   };
 
-  const labels = crimeData.map((el) => {
-    return el["city-name"]._text;
-  });
+  const labels = crimeData
+    .map((el) => {
+      return el["city-name"]._text;
+    })
+    .slice(1, 8);
 
   const doughnutData = {
     labels,
     datasets: [
       {
         label: "성범죄자 지역별 통계 ",
-        data: crimeData.map((el) => {
-          return el["city-count"]._text;
-        }),
+        data: crimeData
+          .map((el) => {
+            return el["city-count"]._text;
+          })
+          .slice(1, 8),
         borderColor: "black",
         backgroundColor: [
           "rgb(247, 25, 73)",
@@ -125,17 +91,7 @@ const TodayChartBox = () => {
           "rgb(102, 173, 252)",
           "rgb(96, 64, 255)",
           "rgb(255, 206, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(153, 102, 252)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 206, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(153, 102, 252)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 99, 132)",
-          "rgb(17, 21, 217)",
-          "rgb(255, 206, 86)",
-          "rgb(75, 192, 192)",
+          "rgb(232, 86, 255)",
         ],
         borderWidth: 1,
       },
@@ -241,10 +197,12 @@ const ChartContainer = styled.div`
   justify-content: space-between;
   padding: 30px 70px;
   margin-bottom: 120px;
+
   overflow: scroll;
 `;
 
 const ChartBox = styled.div`
-  width: "650px";
-  height: "300px";
+  width: 650px;
+  height: 500px;
+  margin-right: 30px;
 `;

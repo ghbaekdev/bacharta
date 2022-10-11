@@ -8,32 +8,26 @@ import Finance from "../../assets/Finance graph.png";
 import Cursor from "../../assets/Cursor.png";
 import Laptop from "../../assets/Laptop.png";
 import Bar from "../../assets/Content 8.png";
-
 import ExChange from "./ExChange";
+import { ExchangeProps } from "./ChartData/ChartData";
+import { useQueries } from "@tanstack/react-query";
 
 const Main = () => {
-  interface ExchangProps {
-    bkpr: string;
-    cur_nm: string;
-    cur_unit: string;
-    deal_bas_r: string;
-    kftc_bkpr: string;
-    kftc_deal_bas_r: string;
-    result: number;
-    ten_dd_efee_r: string;
-    ttb: string;
-    tts: string;
-    yy_efee_r: string;
-  }
-  const [exchangeData, setExchangeData] = useState<ExchangProps[]>([]);
+  const [exchangeData, setExchangeData] = useState<ExchangeProps[]>([]);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:3001/exchange")
-      .then((res) => setExchangeData(res.data.data));
+    try {
+      axios
+        .get("http://127.0.0.1:3001/exchange")
+        .then((res) => setExchangeData(res.data.data));
+      axios
+        .get("http://127.0.0.1:3001/atmosphere/1")
+        .then((res) => console.log(res, "atmo"));
+    } catch {
+      console.log("에러");
+    }
   }, []);
 
-  console.log(exchangeData, "ex");
   const clickDown = () => {
     console.log("dd");
   };

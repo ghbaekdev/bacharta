@@ -4,26 +4,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import { ExchageProps } from './MainTypes';
+import { ExchangeProps, ExchangeArrayProps } from "./ChartData/ChartData";
 
-interface ExchangeProps {
-  bkpr: string;
-  cur_nm: string;
-  cur_unit: string;
-  deal_bas_r: string;
-  kftc_bkpr: string;
-  kftc_deal_bas_r: string;
-  result: number;
-  ten_dd_efee_r: string;
-  ttb: string;
-  tts: string;
-  yy_efee_r: string;
-}
-
-interface Props {
-  exchangeData: ExchangeProps[];
-}
-
-const ExChange = ({ exchangeData }: Props) => {
+const ExChange = ({ exchangeData }: ExchangeArrayProps) => {
   const settings = {
     dots: false,
     infinite: true,

@@ -8,9 +8,12 @@ interface ItemProps {
 const ExchangeCard = ({ unit, nation, price }: ItemProps) => {
   return (
     <ExchangeItem>
-      <ExchangeNation>국가 : {nation}</ExchangeNation>
-      <ExchangeNation>가격 : {price}원 </ExchangeNation>
-      <ExchangeNation>단위 : {unit} </ExchangeNation>
+      <ExchangeTitle>SALES OVERVIEW</ExchangeTitle>
+      <ExchangeInfo>국가 : {nation}</ExchangeInfo>
+      <ExchangeInfo>
+        가격 : <strong>{price}</strong>원{" "}
+      </ExchangeInfo>
+      <ExchangeInfo>단위 : {unit} </ExchangeInfo>
     </ExchangeItem>
   );
 };
@@ -21,20 +24,31 @@ const ExchangeItem = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: calc(100% - 60px);
   margin: 0 30px;
-  height: 300px;
+  height: 200px;
   border: 1px solid black;
   box-shadow: 10px 5px 5px gray;
 `;
 
-const ExchangeNation = styled.div`
+const ExchangeTitle = styled.div`
   margin: 10px;
-  font-size: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.mainColor};
+`;
+const ExchangeInfo = styled.div`
+  margin: 10px;
+  font-size: 18px;
+
+  strong {
+    font-weight: bold;
+    margin-right: 5px;
+  }
 `;
 
-const Images = styled.img`
+const Image = styled.img`
   width: 30px;
   height: 30px;
 `;
