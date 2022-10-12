@@ -4,20 +4,20 @@ import { MARKER_DATA } from "../../../../data/MARKER_DATA";
 import theme from "../../../../styles/theme";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 
-interface CheckedCitiesType {
-  key: {
-    title: string;
-    lat: number;
-    lng: number;
-  }[];
-}
+// interface CheckedCitiesType {
+//   key: {
+//     title: string;
+//     lat: number;
+//     lng: number;
+//   }[];
+// }
 
 export default function MicrodustsOverlay() {
-  const [checkedCities, setCheckedCities] = useState<CheckedCitiesType>([]);
+  const [checkedCities, setCheckedCities] = useState([]);
 
-  const handleChecked = (title: string, lat: number, lng: number) => {
-    setCheckedCities([...checkedCities, { title: title, lat: lat, lng: lng }]);
-  };
+  // const handleChecked = (title: string, lat: number, lng: number) => {
+  //   setCheckedCities([...checkedCities, { title: title, lat: lat, lng: lng }]);
+  // };
 
   return (
     <>
@@ -25,12 +25,7 @@ export default function MicrodustsOverlay() {
         {MARKER_DATA.map(({ id, title, lat, lng }) => {
           return (
             <InputBox>
-              <Input
-                type="checkbox"
-                value={id}
-                name={title}
-                onChange={() => handleChecked(title, lat, lng)}
-              />
+              <Input type="checkbox" value={id} name={title} />
               <City>{title}</City>
             </InputBox>
           );

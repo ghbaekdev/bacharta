@@ -6,75 +6,20 @@ import snow from "../../../../assets/weatherIcons/snow.png";
 import sun from "../../../../assets/weatherIcons/sun.png";
 import { WEATHER_DATA } from "../../../../data/WEATHER_DATA";
 import styled from "styled-components";
+import { WeatherDataTypes } from "../../Types/WeatherDataTypes";
 
-interface WeatherDataType {
-  data: { title: string; lat: number; lng: number };
-}
-
-const WeatherOverlay = ({ data: { title, lat, lng } }: WeatherDataType) => {
-  const [temperature, setTemperature] = useState<Root>(WEATHER_DATA);
-  const [icon, setIcon] = useState<string>();
+const WeatherOverlay = (props: WeatherDataTypes) => {
+  // const {
+  //   coord: { lon, lat },
+  //   name,
+  //   main: { temp },
+  // } = props.data;
 
   const kelvinTemp = 273.15;
 
-  interface Root {
-    coord: Coord;
-    weather: Weather[];
-    base: string;
-    main: Main;
-    visibility: number;
-    wind: Wind;
-    clouds: Clouds;
-    dt: number;
-    sys: Sys;
-    timezone: number;
-    id: number;
-    name: string;
-    cod: number;
-  }
-
-  interface Coord {
-    lon: number;
-    lat: number;
-  }
-
-  interface Weather {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }
-
-  interface Main {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-    sea_level: number;
-    grnd_level: number;
-  }
-
-  interface Wind {
-    speed: number;
-    deg: number;
-    gust: number;
-  }
-
-  interface Clouds {
-    all: number;
-  }
-
-  interface Sys {
-    country: string;
-    sunrise: number;
-    sunset: number;
-  }
-
   useEffect(() => {
     let weatherIcons;
-    switch (temperature.weather[0].main) {
+    switch (props.data.weather.main) {
       case "Clear":
         weatherIcons = sun;
         break;
@@ -124,7 +69,7 @@ const WeatherOverlay = ({ data: { title, lat, lng } }: WeatherDataType) => {
 
   return (
     <>
-      {temperature && (
+      {/* {temperature && (
         <CustomOverlayMap position={{ lat: lat, lng: lng }} key={lat}>
           <div
             style={{
@@ -143,7 +88,7 @@ const WeatherOverlay = ({ data: { title, lat, lng } }: WeatherDataType) => {
             </OverlayWrapper>
           </div>
         </CustomOverlayMap>
-      )}
+      )} */}
     </>
   );
 };
