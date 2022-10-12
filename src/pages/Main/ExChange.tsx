@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import { ExchageProps } from './MainTypes';
 import { ExchangeProps, ExchangeArrayProps } from "./ChartData/ChartData";
+import NATION_FLAG from "../../data/NATION_FLAG";
+import NationFlag from "./NationFlag";
 
 const ExChange = ({ exchangeData }: ExchangeArrayProps) => {
   const settings = {
@@ -22,6 +24,9 @@ const ExChange = ({ exchangeData }: ExchangeArrayProps) => {
     <ExchageContainer>
       <StyleSlider {...settings}>
         {exchangeData.map((el: ExchangeProps) => {
+          NATION_FLAG.map((el) => {
+            return el.flag_url;
+          });
           return (
             <ExchangeCard
               key={el.ten_dd_efee_r}

@@ -5,6 +5,11 @@ interface ItemProps {
   price: string;
   unit: string;
 }
+interface flagProps {
+  id: number;
+  name: string;
+  flag_url: JSX.Element;
+}
 const ExchangeCard = ({ unit, nation, price }: ItemProps) => {
   return (
     <ExchangeItem>
@@ -13,6 +18,7 @@ const ExchangeCard = ({ unit, nation, price }: ItemProps) => {
       <ExchangeInfo>
         가격 : <strong>{price}</strong>원{" "}
       </ExchangeInfo>
+
       <ExchangeInfo>단위 : {unit} </ExchangeInfo>
     </ExchangeItem>
   );
@@ -29,7 +35,7 @@ const ExchangeItem = styled.div`
   margin: 0 30px;
   height: 200px;
   border: 1px solid black;
-  box-shadow: 10px 5px 5px gray;
+  box-shadow: ${({ theme }) => theme.lowModalShadow};
 `;
 
 const ExchangeTitle = styled.div`
