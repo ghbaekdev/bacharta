@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import NavWhiteLogo from '../../assets/bachartawhite.svg';
-import NavLogo from '../../assets/bacharta.svg';
-import styled from 'styled-components';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { KakaoProfile, KakaoToken, LoadingState } from '../../store/store';
-import Login from '../Login/Login';
-import theme from '../../styles/theme';
+import React, { useEffect, useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import NavWhiteLogo from "../../assets/bachartawhite.svg";
+import NavLogo from "../../assets/bacharta.svg";
+import styled from "styled-components";
+import Tooltip from "@mui/material/Tooltip";
+import Avatar from "@mui/material/Avatar";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { KakaoProfile, KakaoToken, LoadingState } from "../../store/store";
+import Login from "../Login/Login";
+import theme from "../../styles/theme";
 
-const settings = ['Logout'];
-const pages = ['Home', 'Maps', 'OutFits'];
+const settings = ["Logout"];
+const pages = ["Home", "Maps", "OutFits"];
 
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -63,36 +63,36 @@ const Nav = () => {
   };
 
   const goToHome = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const goToPage = (page: string) => {
-    if (page === 'Home') navigate('/');
-    if (page === 'Maps') navigate('/maps');
-    if (page === 'OutFits') navigate('/outfits');
+    if (page === "Home") navigate("/");
+    if (page === "Maps") navigate("/maps");
+    if (page === "OutFits") navigate("/outfits");
   };
 
   const { thumbnail_image_url, nickname }: any = profile;
 
   const kakaoLogout = (setting: string) => {
     setLoading(!loading);
-    if (setting === 'Logout') {
+    if (setting === "Logout") {
       axios.get(
         `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`
       );
-      localStorage.removeItem('access_token');
-      alert('로그아웃됨');
-      navigate('/');
-      setToken('');
+      localStorage.removeItem("access_token");
+      alert("로그아웃됨");
+      navigate("/");
+      setToken("");
     }
     setLoading(!loading);
   };
 
   const getProfile = async () => {
     await axios
-      .get('https://kapi.kakao.com/v2/user/me', {
+      .get("https://kapi.kakao.com/v2/user/me", {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${token}`,
         },
       })
@@ -106,24 +106,19 @@ const Nav = () => {
   return (
     <>
       <Login />
-<<<<<<< HEAD
-     {pageUrl.length === 1 ? (
-        <AppBar position="static" style={{ background: '#3b55e6' }}>
-=======
       {pageUrl.length === 1 ? (
         <AppBar position="static" style={{ background: `${theme.mainColor}` }}>
->>>>>>> f44783e (nav fixed)
           <Container maxWidth="lg">
             <Toolbar
               disableGutters
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                borderBottom: '2px solid #8091ef',
+                display: "flex",
+                justifyContent: "space-between",
+                borderBottom: "2px solid #8091ef",
               }}
             >
               <Logo alt="logo" src={NavWhiteLogo} />
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -138,18 +133,18 @@ const Nav = () => {
                   id="menu-appbar"
                   anchorEl={anchorElNav}
                   anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
+                    vertical: "bottom",
+                    horizontal: "left",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
+                    vertical: "top",
+                    horizontal: "left",
                   }}
                   open={Boolean(anchorElNav)}
                   onClose={handleCloseNavMenu}
                   sx={{
-                    display: { xs: 'block', md: 'none' },
+                    display: { xs: "block", md: "none" },
                   }}
                 >
                   {pages.map((page) => (
@@ -167,13 +162,13 @@ const Nav = () => {
                 href=""
                 sx={{
                   mr: 2,
-                  display: { xs: 'flex', md: 'none' },
+                  display: { xs: "flex", md: "none" },
                   flexGrow: 1,
-                  fontFamily: 'monospace',
+                  fontFamily: "monospace",
                   fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
                 }}
               >
                 LOGO
@@ -182,16 +177,16 @@ const Nav = () => {
                 <Box
                   sx={{
                     flexGrow: 1,
-                    display: { xs: 'none', md: 'flex' },
-                    marginRight: '50px',
+                    display: { xs: "none", md: "flex" },
+                    marginRight: "50px",
                   }}
                 >
                   {pages.map((page) => (
                     <Button
                       key={page}
                       onClick={() => goToPage(page)}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                      style={{ marginRight: '30px', fontSize: '18px' }}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                      style={{ marginRight: "30px", fontSize: "18px" }}
                     >
                       {page}
                     </Button>
@@ -203,24 +198,24 @@ const Nav = () => {
                       <IconButton
                         onClick={handleOpenUserMenu}
                         sx={{ p: 0 }}
-                        style={{ display: 'flex' }}
+                        style={{ display: "flex" }}
                       >
                         <ProfileName> {nickname}</ProfileName>
                         <Avatar alt="Remy Sharp" src={thumbnail_image_url} />
                       </IconButton>
                     </Tooltip>
                     <Menu
-                      sx={{ mt: '45px' }}
+                      sx={{ mt: "45px" }}
                       id="menu-appbar"
                       anchorEl={anchorElUser}
                       anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
+                        vertical: "top",
+                        horizontal: "right",
                       }}
                       keepMounted
                       transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
+                        vertical: "top",
+                        horizontal: "right",
                       }}
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
@@ -242,8 +237,8 @@ const Nav = () => {
                 ) : (
                   <Button
                     onClick={handleLogin}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                    style={{ marginRight: '30px', fontSize: '18px' }}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                    style={{ marginRight: "30px", fontSize: "18px" }}
                   >
                     카카오 로그인
                   </Button>
@@ -258,13 +253,13 @@ const Nav = () => {
             <Toolbar
               disableGutters
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                borderBottom: '2px solid #8091ef',
+                display: "flex",
+                justifyContent: "space-between",
+                borderBottom: "2px solid #8091ef",
               }}
             >
               <Logo alt="logo" src={NavLogo} />
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -279,18 +274,18 @@ const Nav = () => {
                   id="menu-appbar"
                   anchorEl={anchorElNav}
                   anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
+                    vertical: "bottom",
+                    horizontal: "left",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
+                    vertical: "top",
+                    horizontal: "left",
                   }}
                   open={Boolean(anchorElNav)}
                   onClose={handleCloseNavMenu}
                   sx={{
-                    display: { xs: 'block', md: 'none' },
+                    display: { xs: "block", md: "none" },
                   }}
                 >
                   {pages.map((page) => (
@@ -308,13 +303,13 @@ const Nav = () => {
                 href=""
                 sx={{
                   mr: 2,
-                  display: { xs: 'flex', md: 'none' },
+                  display: { xs: "flex", md: "none" },
                   flexGrow: 1,
-                  fontFamily: 'monospace',
+                  fontFamily: "monospace",
                   fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
                 }}
               >
                 LOGO
@@ -323,16 +318,16 @@ const Nav = () => {
                 <Box
                   sx={{
                     flexGrow: 1,
-                    display: { xs: 'none', md: 'flex' },
-                    marginRight: '50px',
+                    display: { xs: "none", md: "flex" },
+                    marginRight: "50px",
                   }}
                 >
                   {pages.map((page) => (
                     <Button
                       key={page}
                       onClick={() => goToPage(page)}
-                      sx={{ my: 2, color: 'black', display: 'block' }}
-                      style={{ marginRight: '30px', fontSize: '18px' }}
+                      sx={{ my: 2, color: "black", display: "block" }}
+                      style={{ marginRight: "30px", fontSize: "18px" }}
                     >
                       {page}
                     </Button>
@@ -344,24 +339,24 @@ const Nav = () => {
                       <IconButton
                         onClick={handleOpenUserMenu}
                         sx={{ p: 0 }}
-                        style={{ display: 'flex', color: `${theme.black}` }}
+                        style={{ display: "flex", color: `${theme.black}` }}
                       >
                         <ProfileName> {nickname}</ProfileName>
                         <Avatar alt="Remy Sharp" src={thumbnail_image_url} />
                       </IconButton>
                     </Tooltip>
                     <Menu
-                      sx={{ mt: '45px' }}
+                      sx={{ mt: "45px" }}
                       id="menu-appbar"
                       anchorEl={anchorElUser}
                       anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
+                        vertical: "top",
+                        horizontal: "right",
                       }}
                       keepMounted
                       transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
+                        vertical: "top",
+                        horizontal: "right",
                       }}
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
@@ -383,8 +378,8 @@ const Nav = () => {
                 ) : (
                   <Button
                     onClick={handleLogin}
-                    sx={{ my: 2, color: 'black', display: 'block' }}
-                    style={{ marginRight: '30px', fontSize: '18px' }}
+                    sx={{ my: 2, color: "black", display: "block" }}
+                    style={{ marginRight: "30px", fontSize: "18px" }}
                   >
                     카카오 로그인
                   </Button>

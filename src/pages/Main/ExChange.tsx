@@ -44,6 +44,7 @@ const ExChange = ({ exchangeData }: ExchangeArrayProps) => {
 export default ExChange;
 
 const ExchageContainer = styled.div`
+  background-color: ${({ theme }) => theme.sideColor};
   padding: 0 50px;
   height: 450px;
 `;

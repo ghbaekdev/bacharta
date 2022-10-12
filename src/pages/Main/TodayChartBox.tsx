@@ -162,9 +162,10 @@ const TodayChartBox = () => {
                 data={doughnutData}
                 options={doughnutOptions}
                 style={{
-                  width: "650px",
-                  height: "300px",
+                  width: "550px",
+                  height: "450px",
                   backgroundColor: "white",
+                  padding: "20px",
                   boxShadow: "10px 5px 5px gray",
                 }}
               />
@@ -175,8 +176,8 @@ const TodayChartBox = () => {
                 data={barData}
                 options={barOptions}
                 style={{
-                  width: "650px",
-                  height: "600px",
+                  width: "700px",
+                  height: "450px",
                   backgroundColor: "white",
                   boxShadow: "10px 5px 5px gray",
                   marginRight: "10px",
@@ -197,12 +198,11 @@ const ChartContainer = styled.div`
   justify-content: space-between;
   padding: 30px 70px;
   margin-bottom: 120px;
-
-  overflow: scroll;
+  height: 700px;
 `;
 
 const ChartBox = styled.div`
   width: 650px;
-  height: 500px;
+  height: 300px;
   margin-right: 30px;
 `;

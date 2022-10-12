@@ -45,21 +45,18 @@ const Main = () => {
                   "여러분들이 원하는 차트가 있습니다! \n원하시는 통계를 차트로 확인하세요!"
                 }
               </BoxText>
-              <ImageContainer></ImageContainer>
             </MainBoxTitle>
             <SubImageContainer>
-              {" "}
               <GraphImage src={Finance} />
               <LaptopImage src={Laptop} />
               <CursorImage src={Cursor} />
               <BarImage src={Bar} />
             </SubImageContainer>
           </MainBox>
-          <ChevronBox>
-            <FontAwesomeIcon onClick={clickDown} icon={faChevronDown} />
-          </ChevronBox>
         </MainBorder>
-
+        <ChevronBox>
+          <FontAwesomeIcon onClick={clickDown} icon={faChevronDown} />
+        </ChevronBox>
         <TodayChartContainer>
           <TodayChartTitle>오늘의 차트 구경</TodayChartTitle>
           <TodayChartBox />
@@ -73,72 +70,79 @@ const Main = () => {
 };
 
 //<Exchange exchangeData={exchangeData} />
-const MainContainer = styled.div``;
+const MainContainer = styled.div`
+  padding-bottom: 300px;
+`;
 
 const MainBorder = styled.div`
   background-color: ${(props) => props.theme.mainColor};
+  ${({ theme }) => theme.flexMixin("center", "center")}
 `;
 
 const MainBox = styled.div`
-  display: flex;
-  background-color: ${(props) => props.theme.mainColor};
+  /* display: flex; */
+  /* background-color: ${({ theme }) => theme.mainColor}; */
+  width: 1080px;
   margin: 0 20%;
   height: 50%;
 `;
 
 const MainBoxTitle = styled.div`
+  background-color: ${({ theme }) => theme.mainColor};
   color: white;
-  padding: 20px;
   margin-top: 100px;
+  margin-right: 50px;
   width: 50%;
   height: 680px;
   white-space: pre-wrap;
 `;
 
 const GraphImage = styled.img`
-  position: relative;
+  position: absolute;
   width: 400px;
   height: 400px;
+  left: 120px;
   z-index: 3;
 `;
-const LaptopImage = styled(GraphImage)`
+const LaptopImage = styled.img`
   position: absolute;
+  width: 400px;
+  height: 400px;
   bottom: 20px;
-  right: 200px;
   z-index: 1;
 `;
 const CursorImage = styled.img`
   position: absolute;
   width: 100px;
   top: 45%;
-  right: 30px;
+  right: 20px;
   z-index: 4;
 `;
 const BarImage = styled.img`
   position: absolute;
   width: 350px;
   bottom: 50px;
-  right: 500px;
+  left: -150px;
   z-index: 2;
-`;
-
-const ImageContainer = styled.div`
-  background-color: red;
 `;
 
 const SubImageContainer = styled.div`
   position: relative;
+  background-color: red;
+  /* background-color: ${({ theme }) => theme.mainColor}; */
   width: 500px;
   height: 680px;
-  margin-top: 100px;
 `;
 const BoxText = styled.p`
   color: white;
+  background-color: beige;
   margin-bottom: 25px;
   font-size: 28px;
 `;
 
 const TodayChartContainer = styled.div`
+  background-color: ${({ theme }) => theme.sideColor};
+  padding-top: 30px;
   height: 650px;
   margin: 150px 0;
 `;
@@ -153,6 +157,7 @@ const ChevronBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${({ theme }) => theme.mainColor};
   margin-top: 10px;
   color: white;
   height: 100px;
