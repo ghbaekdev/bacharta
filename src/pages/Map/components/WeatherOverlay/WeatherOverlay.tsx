@@ -7,11 +7,11 @@ import sun from "../../../../assets/weatherIcons/sun.png";
 import { WEATHER_DATA } from "../../../../data/WEATHER_DATA";
 import styled from "styled-components";
 
-interface DataType {
+interface WeatherDataType {
   data: { title: string; lat: number; lng: number };
 }
 
-const Overlay = ({ data: { title, lat, lng } }: DataType) => {
+const WeatherOverlay = ({ data: { title, lat, lng } }: WeatherDataType) => {
   const [temperature, setTemperature] = useState<Root>(WEATHER_DATA);
   const [icon, setIcon] = useState<string>();
 
@@ -165,4 +165,4 @@ const WeatherImage = styled.img`
   margin: 0 auto;
 `;
 
-export default Overlay;
+export default WeatherOverlay;

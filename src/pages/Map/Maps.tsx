@@ -2,27 +2,27 @@ import { useState, useEffect } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { getWeather } from "../../api/weatherAPI";
 import { MARKER_DATA } from "../../data/MARKER_DATA";
-import Overlay from "./components/Overlay/Overlay";
+import WeatherOverlay from "./components/WeatherOverlay/WeatherOverlay";
 import Buttons from "./components/Buttons/Buttons";
 import Checkbox from "./components/Checkbox/Checkbox";
 import axios from "axios";
 import { getMicrodustsLevel } from "../../api/microdustsAPI";
+import Microdusts from "./components/MicrodustsOverlay/MicrodustsOverlay";
 
 const Maps = () => {
   const [level, setLevel] = useState(13);
-  const [dataSwitch, setDataSwitch] = useState("weather");
+  const [dataSwitch, setDataSwitch] = useState(true);
 
-  useEffect(() => {
-    getWeather(35.17989493738095, 129.07481938748694).then((response) =>
-      console.log(response)
-    );
-  }, []);
+  // useEffect(() => {
+  //   getWeather(35.17989493738095, 129.07481938748694).then((response) =>
+  //   );
+  // }, []);
 
   const weatherSwitch = () => {
-    setDataSwitch("weather");
+    setDataSwitch(true);
   };
   const microdustsSwitch = () => {
-    setDataSwitch("microdusts");
+    setDataSwitch(false);
   };
 
   // useEffect(() => {
@@ -35,10 +35,13 @@ const Maps = () => {
       style={{ width: "100%", height: "1000px", position: "relative" }}
       level={level}
     >
-      {dataSwitch === "weather" &&
-        MARKER_DATA.map((city) => <Overlay data={city} key={city.title} />)}
-
-      {dataSwitch === "microdusts" && <Checkbox />}
+      {dataSwitch ? (
+        MARKER_DATA.map((city) => (
+          <WeatherOverlay data={city} key={city.title} />
+        ))
+      ) : (
+        <Microdusts />
+      )}
 
       <Buttons
         weatherSwitch={weatherSwitch}
