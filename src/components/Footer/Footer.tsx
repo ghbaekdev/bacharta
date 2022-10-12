@@ -29,8 +29,8 @@ const TEAM_PROFILE = [
   {
     id: 0,
     name: "김인태",
-    gitURL: "ssss",
-    blogURL: "dddd",
+    gitURL: "https://github.com/dlsxody1",
+    blogURL: "https://velog.io/@carloskim",
     duty: "Main Page, backend",
     profileImage: "/images/footerImage/intae.png",
   },

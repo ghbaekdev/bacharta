@@ -140,7 +140,7 @@ const ImageWrap = styled.div`
   height: 4rem;
 `;
 const WeatherImage = styled.img`
-  width: 60%;
+  width: 4rem;
 `;
 
 const DateWeather = styled.h3`
