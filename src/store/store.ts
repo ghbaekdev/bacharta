@@ -1,5 +1,4 @@
 import { atom } from "recoil";
-
 export const KakaoToken = atom({
   key: "KakaoToken",
   default: "",

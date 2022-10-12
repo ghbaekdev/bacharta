@@ -1,32 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import loading from '../../assets/loading.gif';
+import * as SC from './style';
 
 const Loading = () => {
   return (
-    <Background>
-            <LoadingText>잠시만 기다려 주세요.</LoadingText>
-           <img src={loading} alt="로딩" />
-    </Background>
+    <SC.Wrapper>
+      <SC.LoadingBar>
+        <SC.Dot />
+        <SC.Dot />
+        <SC.Dot />
+      </SC.LoadingBar>
+    </SC.Wrapper>
   );
 };
 
+// Loading.defaultProps = {
+//   dotColor: '#fff',
+//   dotSize: '30px',
+// };
+
 export default Loading;
-
-const Background = styled.div`
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background: #ffffffb7;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
-
-const LoadingText = styled.div`
-    text-align: center;
-`;

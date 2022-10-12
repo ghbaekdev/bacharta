@@ -1,11 +1,11 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { CustomOverlayMap } from 'react-kakao-maps-sdk';
-import * as api from '../../api/weatherAPI';
-import clouds from '../../assets/weatherIcons/clouds.png';
-import rain from '../../assets/weatherIcons/rain.png';
-import snow from '../../assets/weatherIcons/snow.png';
-import sun from '../../assets/weatherIcons/sun.png';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { CustomOverlayMap } from "react-kakao-maps-sdk";
+
+import clouds from "../../assets/weatherIcons/clouds.png";
+import rain from "../../assets/weatherIcons/rain.png";
+import snow from "../../assets/weatherIcons/snow.png";
+import sun from "../../assets/weatherIcons/sun.png";
 
 interface DataType {
   data: { title: string; lat: number; lng: number };
@@ -80,16 +80,16 @@ const Overlay = ({ data: { title, lat, lng } }: DataType) => {
       .then((res) => {
         let weatherIcons;
         switch (res.data.weather[0].main) {
-          case 'Clear':
+          case "Clear":
             weatherIcons = sun;
             break;
-          case 'Clouds':
+          case "Clouds":
             weatherIcons = clouds;
             break;
-          case 'Rain':
+          case "Rain":
             weatherIcons = rain;
             break;
-          case 'Snow':
+          case "Snow":
             weatherIcons = snow;
             break;
           default:
@@ -129,9 +129,9 @@ const Overlay = ({ data: { title, lat, lng } }: DataType) => {
         <CustomOverlayMap position={{ lat: lat, lng: lng }} key={lat}>
           <div
             style={{
-              padding: '10qpx',
-              backgroundColor: '#fff',
-              color: '#000',
+              padding: "10qpx",
+              backgroundColor: "#fff",
+              color: "#000",
             }}
           >
             {title}

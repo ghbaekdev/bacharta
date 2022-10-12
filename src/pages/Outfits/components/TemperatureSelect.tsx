@@ -5,7 +5,6 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { indigo, grey } from "@mui/material/colors";
-
 interface ControlProps {
   checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -17,15 +16,17 @@ interface ControlProps {
 }
 
 interface SelectProps {
+  weatherIcons: string;
+  isGoToResult: () => void;
   isActiveModalStatus: () => void;
-  getOutfitsInfo: () => void;
   controlProps: (item: string) => ControlProps;
 }
 
 const TemperatureSelect = ({
   isActiveModalStatus,
   controlProps,
-  getOutfitsInfo,
+  weatherIcons,
+  isGoToResult,
 }: SelectProps) => {
   return (
     <Wrap>
@@ -33,72 +34,43 @@ const TemperatureSelect = ({
         <ModalTitle>지금 느끼는 온도는 어떤가요?</ModalTitle>
       </ModalHeader>
       <ModalSection>
-        <ModalImage
-          src="/images/Outfits/weather.png"
-          alt="날씨아이콘"
-        ></ModalImage>
+        <ModalImage src={weatherIcons} alt="날씨아이콘"></ModalImage>
       </ModalSection>
-
       <ModalSelect>
         <FormControl>
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
             name="row-radio-buttons-group"
-            defaultValue="good"
+            defaultValue="normal"
             color="success"
           >
-            <FormControlLabel
-              value="cold"
-              control={
-                <Radio
-                  {...controlProps("cold")}
-                  sx={{
-                    color: grey["300"],
-                    "&.Mui-checked": {
-                      color: indigo["A200"],
-                    },
-                  }}
+            {USER_TEMP_SELECT_OPTION.map((tempOption) => {
+              return (
+                <FormControlLabel
+                  key={tempOption.id}
+                  value={tempOption.id}
+                  control={
+                    <Radio
+                      {...controlProps(tempOption.temp)}
+                      sx={{
+                        color: grey["300"],
+                        "&.Mui-checked": {
+                          color: indigo["A200"],
+                        },
+                      }}
+                    />
+                  }
+                  label={tempOption.text}
                 />
-              }
-              label="추워요"
-            />
-            <FormControlLabel
-              value="normal"
-              control={
-                <Radio
-                  {...controlProps("normal")}
-                  sx={{
-                    color: grey["300"],
-                    "&.Mui-checked": {
-                      color: indigo["A200"],
-                    },
-                  }}
-                />
-              }
-              label="적당해요"
-            />
-            <FormControlLabel
-              value="hot"
-              control={
-                <Radio
-                  {...controlProps("hot")}
-                  sx={{
-                    color: grey["300"],
-                    "&.Mui-checked": {
-                      color: indigo["A200"],
-                    },
-                  }}
-                />
-              }
-              label="더워요"
-            />
+              );
+            })}
           </RadioGroup>
         </FormControl>
       </ModalSelect>
       <ModalFooter>
         <PrevButton onClick={isActiveModalStatus}>이전</PrevButton>
-        <NextButton onClick={getOutfitsInfo}>다음</NextButton>
+        <NextButton onClick={isGoToResult}>다음</NextButton>
       </ModalFooter>
     </Wrap>
   );
@@ -112,22 +84,24 @@ const ModalTitle = styled.h2`
   padding: 10px 0;
   font-weight: 600;
   font-size: 22px;
-  color: ${(props) => props.theme.keyColor};
+  color: ${(props) => props.theme.mainColor};
 `;
 const ModalSection = styled.div`
-  ${({ theme }) => theme.flexMixin("", "center")}
+  ${({ theme }) => theme.flexMixin("center", "center")}
   padding-top: 10px;
 `;
 const ModalImage = styled.img`
   width: 100px;
+  margin-top: 2px;
 `;
+
 const ModalSelect = styled.div`
   ${({ theme }) => theme.flexMixin("center", "center")}
-  padding-top: 14px;
+  padding-top: 16px;
 `;
 const ModalFooter = styled.div`
   ${({ theme }) => theme.flexMixin("", "center")}
-  padding-top: 24px;
+  padding-top: 19px;
 `;
 
 const PrevButton = styled.button`
@@ -135,7 +109,7 @@ const PrevButton = styled.button`
   margin-right: 10px;
   background-color: ${(props) => props.theme.lightGrey};
   padding: 10px 30px;
-  color: ${(props) => props.theme.keyColor};
+  color: ${(props) => props.theme.mainColor};
   border-radius: 30px;
   border: none;
   cursor: pointer;
@@ -145,7 +119,7 @@ const PrevButton = styled.button`
   }
 `;
 const NextButton = styled.button`
-  background-color: ${(props) => props.theme.keyColor};
+  background-color: ${(props) => props.theme.mainColor};
   padding: 10px 30px;
   color: ${(props) => props.theme.white};
   border-radius: 30px;
@@ -157,23 +131,11 @@ const NextButton = styled.button`
   }
 `;
 
-const LOCATION_INFO: { [key: string]: string }[] = [
-  { seoul: "서울" },
-  { incheon: "인천" },
-  { busan: "부산" },
-  { daegu: "대구" },
-  { gwangju: "광주" },
-  { daejeon: "대전" },
-  { ulsan: "울산" },
-  { sejong: "세종" },
-  { gyeonggi: "경기" },
-  { gangwon: "강원" },
-  { chungbuk: "충북" },
-  { chungcheong: "충남" },
-  { jeonbuk: "전북" },
-  { jeonnam: "전남" },
-  { gyeongbuk: "경북" },
-  { gyeongnam: "경남" },
-  { jeju: "제주" },
+const USER_TEMP_SELECT_OPTION = [
+  { id: 0, temp: "-5", text: "추워요" },
+  { id: 1, temp: "-3", text: "조금 추워요" },
+  { id: 2, temp: "0", text: "적당해요" },
+  { id: 3, temp: "3", text: "조금 더워요" },
+  { id: 4, temp: "5", text: "더워요" },
 ];
 export default TemperatureSelect;
