@@ -63,7 +63,6 @@ const TEAM_PROFILE = [
 const Wrap = styled.footer`
   position: relative;
   width: 100%;
-  margin-top: 120px;
   background-color: ${(props) => props.theme.deepGrey};
   border-bottom: 8px solid ${(props) => props.theme.hoverBlue};
   ${({ theme }) => theme.flexMixin("", "center")}

@@ -14,12 +14,12 @@ const ExchangeCard = ({ unit, nation, price }: ItemProps) => {
   return (
     <ExchangeItem>
       <ExchangeTitle>SALES OVERVIEW</ExchangeTitle>
-      <ExchangeInfo>국가 : {nation}</ExchangeInfo>
+      <ExchangeInfo>국가 : {nation} </ExchangeInfo>
       <ExchangeInfo>
-        가격 : <strong>{price}</strong>원{" "}
+        ₩<strong>{price}</strong>
       </ExchangeInfo>
 
-      <ExchangeInfo>단위 : {unit} </ExchangeInfo>
+      <ExchangeInfo>통화명 : {unit} </ExchangeInfo>
     </ExchangeItem>
   );
 };
@@ -31,11 +31,13 @@ const ExchangeItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  background-color: white;
   width: calc(100% - 60px);
   margin: 0 30px;
+  padding: 0 25px;
   height: 200px;
-  border: 1px solid black;
-  box-shadow: ${({ theme }) => theme.lowModalShadow};
+  border: none;
+  box-shadow: ${({ theme }) => theme.lowModalDeepShadow};
 `;
 
 const ExchangeTitle = styled.div`

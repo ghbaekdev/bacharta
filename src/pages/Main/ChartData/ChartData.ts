@@ -43,6 +43,11 @@ export interface ExchangeProps {
   ttb: string;
   tts: string;
   yy_efee_r: string;
+  flag: {
+    id: number;
+    flag_url: JSX.Element;
+    name: string;
+  };
 }
 
 export interface ExchangeArrayProps {

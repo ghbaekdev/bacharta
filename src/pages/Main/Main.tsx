@@ -11,6 +11,7 @@ import Bar from "../../assets/Content 8.png";
 import ExChange from "./ExChange";
 import { ExchangeProps } from "./ChartData/ChartData";
 import { useQueries } from "@tanstack/react-query";
+import Queries from "./Queries";
 
 const Main = () => {
   const [exchangeData, setExchangeData] = useState<ExchangeProps[]>([]);
@@ -20,9 +21,6 @@ const Main = () => {
       axios
         .get("http://127.0.0.1:3001/exchange")
         .then((res) => setExchangeData(res.data.data));
-      axios
-        .get("http://127.0.0.1:3001/atmosphere/1")
-        .then((res) => console.log(res, "atmo"));
     } catch {
       console.log("에러");
     }
@@ -62,7 +60,7 @@ const Main = () => {
           <TodayChartBox />
           <TodayChartTitle>오늘의 환율 구경</TodayChartTitle>
 
-          <ExChange exchangeData={exchangeData} />
+          <ExChange />
         </TodayChartContainer>
       </MainContainer>
     </>
@@ -70,9 +68,7 @@ const Main = () => {
 };
 
 //<Exchange exchangeData={exchangeData} />
-const MainContainer = styled.div`
-  padding-bottom: 300px;
-`;
+const MainContainer = styled.div``;
 
 const MainBorder = styled.div`
   background-color: ${(props) => props.theme.mainColor};
@@ -80,8 +76,7 @@ const MainBorder = styled.div`
 `;
 
 const MainBox = styled.div`
-  /* display: flex; */
-  /* background-color: ${({ theme }) => theme.mainColor}; */
+  display: flex;
   width: 1080px;
   margin: 0 20%;
   height: 50%;
@@ -128,23 +123,20 @@ const BarImage = styled.img`
 
 const SubImageContainer = styled.div`
   position: relative;
-  background-color: red;
-  /* background-color: ${({ theme }) => theme.mainColor}; */
+  background-color: ${({ theme }) => theme.mainColor};
   width: 500px;
   height: 680px;
 `;
+
 const BoxText = styled.p`
   color: white;
-  background-color: beige;
   margin-bottom: 25px;
   font-size: 28px;
 `;
 
 const TodayChartContainer = styled.div`
   background-color: ${({ theme }) => theme.sideColor};
-  padding-top: 30px;
-  height: 650px;
-  margin: 150px 0;
+  padding: 100px 30px;
 `;
 
 const TodayChartTitle = styled.p`
@@ -158,7 +150,6 @@ const ChevronBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.mainColor};
-  margin-top: 10px;
   color: white;
   height: 100px;
   font-size: 40px;

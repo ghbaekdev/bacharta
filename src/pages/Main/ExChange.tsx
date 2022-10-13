@@ -6,9 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 // import { ExchageProps } from './MainTypes';
 import { ExchangeProps, ExchangeArrayProps } from "./ChartData/ChartData";
 import NATION_FLAG from "../../data/NATION_FLAG";
-import NationFlag from "./NationFlag";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../components/Loading/Loading";
+import axios from "axios";
 
-const ExChange = ({ exchangeData }: ExchangeArrayProps) => {
+const ExChange = () => {
   const settings = {
     dots: false,
     infinite: true,
@@ -19,14 +21,33 @@ const ExChange = ({ exchangeData }: ExchangeArrayProps) => {
     autoplay: true,
     autoplaySpeed: 3000,
   };
+  const getExchangeData = async () => {
+    const { data } = await axios.get("http://127.0.0.1:3001/exchange");
+    return data;
+  };
 
+  const { status, data, error } = useQuery(["exchaData"], getExchangeData, {
+    refetchOnWindowFocus: false,
+    retry: 0,
+    onSuccess: (data) => {
+      console.log(data, "useQuery 통신 성공");
+    },
+    onError: (e) => {
+      console.log(e, "에러가 생겼어요");
+    },
+  });
+
+  console.log(data, "밖");
+  if (status === "loading") {
+    return <Loading />;
+  }
+  if (status === "error") {
+    return <Loading />;
+  }
   return (
     <ExchageContainer>
       <StyleSlider {...settings}>
-        {exchangeData.map((el: ExchangeProps) => {
-          NATION_FLAG.map((el) => {
-            return el.flag_url;
-          });
+        {data.data.map((el: ExchangeProps) => {
           return (
             <ExchangeCard
               key={el.ten_dd_efee_r}
@@ -64,5 +85,8 @@ const StyleSlider = styled(Slider)`
   .slick-prev,
   .slick-next {
     background: transparent;
+  }
+  .slick-slide {
+    padding: 10px;
   }
 `;
