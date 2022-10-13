@@ -34,27 +34,30 @@ const Main = () => {
       <MainContainer>
         <MainBorder>
           <MainBox>
-            <MainBoxTitle>
-              <BoxText>원하시는 통계를 차트로 확인하세요!</BoxText>
-              <BoxText>수치로써 확인할 수 있습니다!</BoxText>
-              <BoxText>날씨별 옷차림도 추천받아보세요!</BoxText>
-              <BoxText style={{ fontSize: "20px" }}>
-                {
-                  "여러분들이 원하는 차트가 있습니다! \n원하시는 통계를 차트로 확인하세요!"
-                }
-              </BoxText>
-            </MainBoxTitle>
-            <SubImageContainer>
-              <GraphImage src={Finance} />
-              <LaptopImage src={Laptop} />
-              <CursorImage src={Cursor} />
-              <BarImage src={Bar} />
-            </SubImageContainer>
+            <MainBoxContents>
+              <MainBoxTitle>
+                <BoxText>원하시는 통계를 차트로 확인하세요!</BoxText>
+                <BoxText>수치로써 확인할 수 있습니다!</BoxText>
+                <BoxText>날씨별 옷차림도 추천받아보세요!</BoxText>
+                <BoxText style={{ fontSize: "20px" }}>
+                  {
+                    "여러분들이 원하는 차트가 있습니다! \n원하시는 통계를 차트로 확인하세요!"
+                  }
+                </BoxText>
+              </MainBoxTitle>
+              <SubImageContainer>
+                <GraphImage src={Finance} />
+                <LaptopImage src={Laptop} />
+                <CursorImage src={Cursor} />
+                <BarImage src={Bar} />
+              </SubImageContainer>
+            </MainBoxContents>
+            <ChevronBox>
+              <FontAwesomeIcon onClick={clickDown} icon={faChevronDown} />
+            </ChevronBox>
           </MainBox>
         </MainBorder>
-        <ChevronBox>
-          <FontAwesomeIcon onClick={clickDown} icon={faChevronDown} />
-        </ChevronBox>
+
         <TodayChartContainer>
           <TodayChartTitle>오늘의 차트 구경</TodayChartTitle>
           <TodayChartBox />
@@ -81,9 +84,10 @@ const MainBox = styled.div`
   margin: 0 20%;
   height: 50%;
 `;
-
+const MainBoxContents = styled.div`
+  display: flex;
+`;
 const MainBoxTitle = styled.div`
-  background-color: ${({ theme }) => theme.mainColor};
   color: white;
   margin-top: 100px;
   margin-right: 50px;
