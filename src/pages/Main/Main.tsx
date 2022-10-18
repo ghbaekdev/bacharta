@@ -10,8 +10,6 @@ import Laptop from "../../assets/Laptop.png";
 import Bar from "../../assets/Content 8.png";
 import ExChange from "./ExChange";
 import { ExchangeProps } from "./ChartData/ChartData";
-import { useQueries } from "@tanstack/react-query";
-import Queries from "./Queries";
 
 const Main = () => {
   const [exchangeData, setExchangeData] = useState<ExchangeProps[]>([]);

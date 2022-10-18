@@ -37,7 +37,6 @@ const ExChange = () => {
     },
   });
 
-  console.log(data, "밖");
   if (status === "loading") {
     return <Loading />;
   }
