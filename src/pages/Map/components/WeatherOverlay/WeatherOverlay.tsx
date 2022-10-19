@@ -66,25 +66,6 @@ interface Sys {
   sunset: number;
 }
 
-// interface Bohyun {
-//   data: {
-//     main: {
-//       feels_like: number;
-//     };
-//     coord: {
-//       lat: number;
-//       lon: number;
-//     };
-//     name: string;
-//     weather: {
-//       id: number;
-//       description: string;
-//       icon: string;
-//       main: string;
-//     }[];
-//   };
-// }
-
 const WeatherOverlay = (props: any) => {
   const [icon, setIcon] = useState<string>();
 
@@ -128,7 +109,7 @@ const WeatherOverlay = (props: any) => {
               <span>{name}</span>
             </City>
             <Temperature>
-              {(main.temp - kelvinTemp).toFixed(1)}
+              {main.temp.toFixed(1)}
               <span>&#8451;</span>
             </Temperature>
           </OverlayWrapper>

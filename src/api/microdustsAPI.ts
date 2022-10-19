@@ -1,10 +1,6 @@
-import axios from "axios";
+import { instance } from "./api";
 
-const instance = axios.create({
-  baseURL: "http://192.168.35.104:3001/atmosphere/",
-});
-
-// export const getMicrodustsLevel = async (stationcode) => {
-//   const response = await instance.get(`${stationcode}`);
-//   return response.data;
-// };
+export const getMicrodustsLevel = async (stationcode: number) => {
+  const response = await instance.get(`/atmosphere/${stationcode}`);
+  return response.data;
+};

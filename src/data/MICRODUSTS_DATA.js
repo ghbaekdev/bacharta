@@ -1,4 +1,4 @@
-export const MICRODUSTS_DATA = {
+export const MICRODUSTS_DATA = [
   data: {
     _declaration: { _attributes: { version: "1.0", encoding: "UTF-8" } },
     response: {
@@ -21,5 +21,5 @@ export const MICRODUSTS_DATA = {
         totalCount: { _text: "7" },
       },
     },
-  },
-};
+  }
+]

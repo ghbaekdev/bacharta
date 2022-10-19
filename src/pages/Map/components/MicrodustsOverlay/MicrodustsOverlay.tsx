@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MARKER_DATA } from "../../../../data/MARKER_DATA";
 import theme from "../../../../styles/theme";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
+import { getMicrodustsLevel } from "../../../../api/microdustsAPI";
 
 // interface CheckedCitiesType {
 //   key: {
@@ -14,6 +15,11 @@ import { CustomOverlayMap } from "react-kakao-maps-sdk";
 
 export default function MicrodustsOverlay() {
   const [checkedCities, setCheckedCities] = useState([]);
+  const [microdusts, setMicrodusts] = useState();
+
+  useEffect(() => {
+    getMicrodustsLevel(1).then((response) => console.log(response));
+  }, []);
 
   // const handleChecked = (title: string, lat: number, lng: number) => {
   //   setCheckedCities([...checkedCities, { title: title, lat: lat, lng: lng }]);
