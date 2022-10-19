@@ -55,7 +55,7 @@ export const MARKER_DATA = [
   },
   {
     id: 10,
-    title: "울릉도",
+    title: "울릉",
     lat: 37.484452313140295,
     lng: 130.90620490696006,
   },

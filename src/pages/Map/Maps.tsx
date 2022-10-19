@@ -1,30 +1,26 @@
 import { useState, useEffect } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { getWeather } from "../../api/weatherAPI";
-import { MARKER_DATA } from "../../data/MARKER_DATA";
-import WeatherOverlay, {
-  Root,
-} from "./components/WeatherOverlay/WeatherOverlay";
+// import { getWeather } from "../../api/weatherAPI";
+import { WEATHER_DATA } from "../../data/WEATHER_DATA";
+import WeatherOverlay from "./components/WeatherOverlay/WeatherOverlay";
 import Buttons from "./components/Buttons/Buttons";
-import Checkbox from "./components/Checkbox/Checkbox";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "../../components/Loading/Loading";
-import { MapsDataType } from "./Types/MapsDataTypes";
+// import Checkbox from "./components/Checkbox/Checkbox";
+// import { useQuery } from "@tanstack/react-query";
+// import Loading from "../../components/Loading/Loading";
 
 const Maps = () => {
   const [level, setLevel] = useState(13);
   const [dataSwitch, setDataSwitch] = useState(true);
   // const [temperature, setTemperature] = useState();
-  const [icon, setIcon] = useState<string>();
 
-  const {
-    status,
-    data: { data },
-  } = useQuery(["weatherData"], () => getWeather());
-  console.log(data);
+  // const {
+  //   status,
+  //   data: { data },
+  // } = useQuery(["weatherData"], () => getWeather());
+  // console.log(data);
 
-  if (status === "loading") return <Loading />;
+  // if (status === "loading") return <Loading />;
+
   // useEffect(() => {
   //   getWeather(35.17989493738095, 129.07481938748694).then((response) =>
   //   );
@@ -73,10 +69,9 @@ const Maps = () => {
       style={{ width: "100%", height: "1000px", position: "relative" }}
       level={level}
     >
-      {data.map((weather: MapsDataType) => (
+      {WEATHER_DATA.map((weather) => (
         <WeatherOverlay data={weather} />
       ))}
-
       <Buttons
         weatherSwitch={weatherSwitch}
         microdustsSwitch={microdustsSwitch}

@@ -1,4 +1,4 @@
-export interface MapsDataType {
+export interface MapsDataTypes {
   coord: Coord;
   weather: Weather[];
   base: string;

@@ -4,22 +4,97 @@ import clouds from "../../../../assets/weatherIcons/sun.png";
 import rain from "../../../../assets/weatherIcons/rain.png";
 import snow from "../../../../assets/weatherIcons/snow.png";
 import sun from "../../../../assets/weatherIcons/sun.png";
-import { WEATHER_DATA } from "../../../../data/WEATHER_DATA";
 import styled from "styled-components";
-import { WeatherDataTypes } from "../../Types/WeatherDataTypes";
+import { blue } from "@mui/material/colors";
 
-const WeatherOverlay = (props: WeatherDataTypes) => {
-  // const {
-  //   coord: { lon, lat },
-  //   name,
-  //   main: { temp },
-  // } = props.data;
+// import { MapsDataTypes } from "../../Types/MapsDataTypes";
+
+interface WeatherDataTypes {
+  data: {
+    coord: Coord;
+    weather: Weather[];
+    base: string;
+    main: Main;
+    visibility: number;
+    wind: Wind;
+    clouds: Clouds;
+    dt: number;
+    sys: Sys;
+    timezone: number;
+    id: number;
+    name: string;
+    cod: number;
+  };
+}
+
+interface Coord {
+  lon: number;
+  lat: number;
+}
+
+interface Weather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
+
+interface Main {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  humidity: number;
+  sea_level: number;
+  grnd_level: number;
+}
+
+interface Wind {
+  speed: number;
+  deg: number;
+  gust: number;
+}
+
+interface Clouds {
+  all: number;
+}
+
+interface Sys {
+  country: string;
+  sunrise: number;
+  sunset: number;
+}
+
+// interface Bohyun {
+//   data: {
+//     main: {
+//       feels_like: number;
+//     };
+//     coord: {
+//       lat: number;
+//       lon: number;
+//     };
+//     name: string;
+//     weather: {
+//       id: number;
+//       description: string;
+//       icon: string;
+//       main: string;
+//     }[];
+//   };
+// }
+
+const WeatherOverlay = (props: any) => {
+  const [icon, setIcon] = useState<string>();
+
+  const { coord, main, name, weather } = props.data;
 
   const kelvinTemp = 273.15;
 
   useEffect(() => {
     let weatherIcons;
-    switch (props.data.weather.main) {
+    switch (weather[0].main) {
       case "Clear":
         weatherIcons = sun;
         break;
@@ -38,76 +113,70 @@ const WeatherOverlay = (props: WeatherDataTypes) => {
     setIcon(weatherIcons);
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`
-  //     )
-  //     .then((res) => {
-  //       let weatherIcons;
-  //       switch (res.data.weather[0].main) {
-  //         case 'Clear':
-  //           weatherIcons = sun;
-  //           break;
-  //         case 'Clouds':
-  //           weatherIcons = clouds;
-  //           break;
-  //         case 'Rain':
-  //           weatherIcons = rain;
-  //           break;
-  //         case 'Snow':
-  //           weatherIcons = snow;
-  //           break;
-  //         default:
-  //           weatherIcons = sun;
-  //       }
-  //       setTemperature(res.data);
-  //       setIcon(weatherIcons);
-  //     });
-
-  // }, []);
-
   return (
     <>
-      {/* {temperature && (
-        <CustomOverlayMap position={{ lat: lat, lng: lng }} key={lat}>
-          <div
-            style={{
-              padding: "10qpx",
-              backgroundColor: "#e3d4f7",
-              color: "#000",
-            }}
-          >
-            <OverlayWrapper>
-              <City>{title}</City>
-              <Temperature>
-                {(temperature.main.temp - kelvinTemp).toFixed(1)}
-                <span>&#8451;</span>
-              </Temperature>
-              <WeatherImage src={icon} />
-            </OverlayWrapper>
-          </div>
-        </CustomOverlayMap>
-      )} */}
+      <CustomOverlayMap
+        position={{ lat: coord.lat, lng: coord.lon }}
+        key={coord.lat}
+      >
+        <OverlayBox>
+          <WeatherImageWrapper>
+            <WeatherImage src={icon} />
+          </WeatherImageWrapper>
+          <OverlayWrapper>
+            <City>
+              <span>{name}</span>
+            </City>
+            <Temperature>
+              {(main.temp - kelvinTemp).toFixed(1)}
+              <span>&#8451;</span>
+            </Temperature>
+          </OverlayWrapper>
+        </OverlayBox>
+      </CustomOverlayMap>
     </>
   );
 };
 
-const OverlayWrapper = styled.div`
+const OverlayBox = styled.div`
   display: flex;
-  flex-direction: column;
+  padding: 0px 10px 0px 0px;
+  background-color: #ffffff;
+  color: #000;
+  border: none;
+  border-radius: 25px;
 `;
 
-const City = styled.div`
-  padding: 5px;
+const WeatherImageWrapper = styled.div`
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #fef6cd;
+`;
+
+const OverlayWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
   text-align: center;
 `;
 
-const Temperature = styled(City)``;
-
 const WeatherImage = styled.img`
-  width: 50px;
+  width: 30px;
+  height: 30px;
   margin: 0 auto;
+`;
+
+const City = styled.div`
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  margin: auto;
+  font-size: 12px;
+  font-weight: 700px;
+  font-family: Tango Sans;
+`;
+
+const Temperature = styled(City)`
+  padding: 5px 0px 5px 0px;
 `;
 
 export default WeatherOverlay;
