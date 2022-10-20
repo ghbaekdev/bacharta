@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -23,6 +24,34 @@ import theme from "../../styles/theme";
 
 const settings = ["Logout"];
 const pages = ["Home", "Maps", "OutFits"];
+=======
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import NavWhiteLogo from '../../assets/bachartawhite.svg';
+import NavLogo from '../../assets/bacharta.svg';
+import styled from 'styled-components';
+import Tooltip from '@mui/material/Tooltip';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { KakaoToken } from '../../store/store';
+import Login from '../Login/Login';
+import theme from '../../styles/theme';
+import { kakaoLogout } from '../../api/authAPI';
+import { getProfile } from '../../api/profileAPI';
+import { useQuery } from '@tanstack/react-query';
+import { Avatar } from '@mui/material';
+
+const pages = ['Home', 'Maps', 'OutFits'];
+>>>>>>> ebabbbe6ea912aafaaed6ee7cc1c3d22a31f1340
 
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -37,11 +66,9 @@ const Nav = () => {
   const navigate = useNavigate();
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const LOGOUT_REDIRECT_URI = process.env.REACT_APP_LOGOUT_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const authToken = localStorage.getItem('access_token');
   const [token, setToken] = useRecoilState(KakaoToken);
-  const [profile, setProfile] = useRecoilState(KakaoProfile);
-  const [loading, setLoading] = useRecoilState(LoadingState);
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
@@ -72,6 +99,7 @@ const Nav = () => {
     if (page === "OutFits") navigate("/outfits");
   };
 
+<<<<<<< HEAD
   const { thumbnail_image_url, nickname }: any = profile;
 
   const kakaoLogout = (setting: string) => {
@@ -102,6 +130,17 @@ const Nav = () => {
   useEffect(() => {
     getProfile();
   }, [token]);
+=======
+  const logout = () => {
+    kakaoLogout();
+    navigate('/');
+    localStorage.removeItem('access_token');
+  };
+
+  const { data } = useQuery(['getProfile'], () => getProfile(authToken), {
+    enabled: !!authToken,
+  });
+>>>>>>> ebabbbe6ea912aafaaed6ee7cc1c3d22a31f1340
 
   return (
     <>
@@ -117,8 +156,13 @@ const Nav = () => {
                 borderBottom: "2px solid #8091ef",
               }}
             >
+<<<<<<< HEAD
               <Logo alt="logo" src={NavWhiteLogo} />
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+=======
+              <Logo alt="logo" src={NavWhiteLogo} onClick={goToHome} />
+              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+>>>>>>> ebabbbe6ea912aafaaed6ee7cc1c3d22a31f1340
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -192,7 +236,7 @@ const Nav = () => {
                     </Button>
                   ))}
                 </Box>
-                {token ? (
+                {authToken ? (
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton
@@ -200,8 +244,15 @@ const Nav = () => {
                         sx={{ p: 0 }}
                         style={{ display: "flex" }}
                       >
-                        <ProfileName> {nickname}</ProfileName>
-                        <Avatar alt="Remy Sharp" src={thumbnail_image_url} />
+                        <ProfileName>
+                          {data?.data.kakao_account.profile.nickname}
+                        </ProfileName>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={
+                            data?.data.kakao_account.profile.thumbnail_image_url
+                          }
+                        />
                       </IconButton>
                     </Tooltip>
                     <Menu
@@ -220,18 +271,16 @@ const Nav = () => {
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
                     >
-                      {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                          <Typography
-                            textAlign="center"
-                            onClick={() => {
-                              kakaoLogout(setting);
-                            }}
-                          >
-                            {setting}
-                          </Typography>
-                        </MenuItem>
-                      ))}
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography
+                          textAlign="center"
+                          onClick={() => {
+                            logout();
+                          }}
+                        >
+                          로그아웃
+                        </Typography>
+                      </MenuItem>
                     </Menu>
                   </Box>
                 ) : (
@@ -253,6 +302,7 @@ const Nav = () => {
             <Toolbar
               disableGutters
               style={{
+<<<<<<< HEAD
                 display: "flex",
                 justifyContent: "space-between",
                 borderBottom: "2px solid #8091ef",
@@ -260,6 +310,14 @@ const Nav = () => {
             >
               <Logo alt="logo" src={NavLogo} />
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+=======
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Logo alt="logo" src={NavLogo} onClick={goToHome} />
+              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+>>>>>>> ebabbbe6ea912aafaaed6ee7cc1c3d22a31f1340
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -333,7 +391,7 @@ const Nav = () => {
                     </Button>
                   ))}
                 </Box>
-                {token ? (
+                {authToken ? (
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton
@@ -341,8 +399,15 @@ const Nav = () => {
                         sx={{ p: 0 }}
                         style={{ display: "flex", color: `${theme.black}` }}
                       >
-                        <ProfileName> {nickname}</ProfileName>
-                        <Avatar alt="Remy Sharp" src={thumbnail_image_url} />
+                        <ProfileName>
+                          {data?.data.kakao_account.profile.nickname}
+                        </ProfileName>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={
+                            data?.data.kakao_account.profile.thumbnail_image_url
+                          }
+                        />
                       </IconButton>
                     </Tooltip>
                     <Menu
@@ -361,18 +426,16 @@ const Nav = () => {
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
                     >
-                      {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                          <Typography
-                            textAlign="center"
-                            onClick={() => {
-                              kakaoLogout(setting);
-                            }}
-                          >
-                            {setting}
-                          </Typography>
-                        </MenuItem>
-                      ))}
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography
+                          textAlign="center"
+                          onClick={() => {
+                            logout();
+                          }}
+                        >
+                          로그아웃
+                        </Typography>
+                      </MenuItem>
                     </Menu>
                   </Box>
                 ) : (

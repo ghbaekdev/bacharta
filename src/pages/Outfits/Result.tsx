@@ -7,24 +7,24 @@ import TempIcon from "./components/TempIcon";
 import { useRecoilState } from "recoil";
 import { OutfitsWeatherState } from "./Data/UserOutfitsData";
 import { WeatherForcastState } from "./Data/WeatherForcastData";
-import { useNavigate } from "react-router-dom";
+import { KakaoToken } from "../../store/store";
 
 const Result = () => {
-  const navigate = useNavigate();
   const [weather] = useRecoilState(OutfitsWeatherState);
   const currentLocation = weather.coord;
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
   const [, setWeatherForcast] = useRecoilState(WeatherForcastState);
   const userLocation = localStorage.getItem("location");
-  const accessToken = localStorage.getItem("access_token");
-  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
-  // useEffect(() => {
-  //   if (!accessToken) {
-  //     // window.location.href = KAKAO_AUTH_URL;
-  //     alert("로그인이 필요합니다.");
-  //     navigate("/");
-  //   }
-  // }, []);
+  const [token] = useRecoilState(KakaoToken);
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  useEffect(() => {
+    if (!token) {
+      window.location.href = KAKAO_AUTH_URL;
+    }
+  }, []);
   useEffect(() => {
     axios
       .get(

@@ -55,7 +55,7 @@ const TEAM_PROFILE = [
     name: "이후경",
     gitURL: "https://github.com/kyungbaa",
     blogURL: "https://velog.io/@kyung-baa",
-    duty: "Outifits Page, Footer, Design",
+    duty: "Outifits Page, 404 Not Found Page, Footer, Design",
     profileImage: "/images/footerImage/hooo.png",
   },
 ];

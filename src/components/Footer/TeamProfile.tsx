@@ -104,7 +104,8 @@ const Name = styled.h3`
   margin-right: 10px;
 `;
 const SubInfo = styled.p`
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 17px;
 `;
 const TeamMemoji = styled.img`
   width: 100%;

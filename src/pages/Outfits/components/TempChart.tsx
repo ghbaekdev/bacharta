@@ -40,6 +40,7 @@ const TempChart = () => {
     let date = new Date(weatherObject.dt_txt);
     let hoursToString = weatherObject.dt_txt.toString();
     let hours = hoursToString.split(" ")[1];
+
     const monthDate = `${("0" + (date.getMonth() + 1)).slice(-2)}-${(
       "0" + date.getDate()
     ).slice(-2)}`;
