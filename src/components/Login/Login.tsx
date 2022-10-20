@@ -1,19 +1,10 @@
-<<<<<<< HEAD
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import qs from "qs";
+import { getKakaoToken } from "../../api/authAPI";
+import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
-import { KakaoToken, LoadingState } from "../../store/store";
-=======
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import qs from 'qs';
-import { getKakaoToken } from '../../api/authAPI';
-import { useQuery } from '@tanstack/react-query';
-import { useRecoilState } from 'recoil';
-import { KakaoToken } from '../../store/store';
->>>>>>> ebabbbe6ea912aafaaed6ee7cc1c3d22a31f1340
+import { KakaoToken } from "../../store/store";
 
 const Login = () => {
   const location = useLocation();
@@ -31,32 +22,6 @@ const Login = () => {
     client_secret: CLIENT_SECRET,
   });
 
-<<<<<<< HEAD
-  const kakaoToken = localStorage.getItem("access_token");
-
-  const getKakaoToken = async () => {
-    await axios
-      .post("https://kauth.kakao.com/oauth/token", data, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-      .then((res) => {
-        if (res.data.access_token) {
-          localStorage.setItem("access_token", res.data.access_token);
-          setToken(res.data.access_token);
-        }
-      })
-      .catch((err) => console.log(err));
-
-    await axios
-      .get("http://192.168.0.6:3000/user/sign", {
-        headers: {
-          Authorization: kakaoToken || "",
-        },
-      })
-      .then((res) => console.log(res.data));
-    setLoading(!loading);
-  };
-=======
   // const getKakaoToken = async () => {
   //   await axios
   //     .post('https://kauth.kakao.com/oauth/token', data, {
@@ -79,10 +44,10 @@ const Login = () => {
   // };
 
   const query = useQuery(
-    ['getToken'],
+    ["getToken"],
     () =>
       getKakaoToken(postData).then((res) => {
-        localStorage.setItem('access_token', res.data.access_token);
+        localStorage.setItem("access_token", res.data.access_token);
         setToken(res.data.access_token);
       }),
     {
@@ -90,7 +55,6 @@ const Login = () => {
       retry: false,
     }
   );
->>>>>>> ebabbbe6ea912aafaaed6ee7cc1c3d22a31f1340
 
   // console.log(postData);
   // useEffect(() => {
