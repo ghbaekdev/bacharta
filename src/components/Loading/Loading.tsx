@@ -1,4 +1,4 @@
-import * as SC from './style';
+import * as SC from "./style";
 
 const Loading = () => {
   return (
@@ -11,10 +11,5 @@ const Loading = () => {
     </SC.Wrapper>
   );
 };
-
-// Loading.defaultProps = {
-//   dotColor: '#fff',
-//   dotSize: '30px',
-// };
 
 export default Loading;

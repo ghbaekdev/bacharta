@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 export const Wrapper = styled.div`
   z-index: 9998;
@@ -45,6 +45,6 @@ export const LoadingBar = styled.div`
 export const Dot = styled.div`
   width: 30px;
   height: 30px;
-  background-color: #fff;
+  background-color: #3c55e6;
   border-radius: 50%;
 `;
