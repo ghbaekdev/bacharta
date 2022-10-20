@@ -13,6 +13,7 @@ const Main = () => {
   const clickDown = () => {
     console.log("dd");
   };
+  const getStorage = localStorage.getItem("location");
   return (
     <>
       <MainContainer>
@@ -43,9 +44,15 @@ const Main = () => {
         </MainBorder>
         <OutfitWrap>
           <OutfitTitle>오늘의 옷차림 추천</OutfitTitle>
-          <OutfitBox>
-            <OutfitsResult />
-          </OutfitBox>
+          {getStorage ? (
+            <>
+              <OutfitBox>
+                <OutfitsResult />
+              </OutfitBox>
+            </>
+          ) : (
+            <>옷차림 추천을 받지 않았습니다</>
+          )}
         </OutfitWrap>
 
         <TodayChartContainer>
