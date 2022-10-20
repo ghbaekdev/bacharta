@@ -188,7 +188,7 @@ const TodayChartBox = () => {
             data={doughnutData}
             options={doughnutOptions}
             style={{
-              width: "550px",
+              width: "530px",
               height: "450px",
               backgroundColor: "white",
               padding: "20px",
@@ -219,13 +219,12 @@ export default TodayChartBox;
 const ChartContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 30px 70px;
+  padding: 30px 180px;
   margin-bottom: 120px;
   height: 700px;
 `;
 
 const ChartBox = styled.div`
-  width: 650px;
+  width: 520px;
   height: 300px;
-  margin-right: 30px;
 `;

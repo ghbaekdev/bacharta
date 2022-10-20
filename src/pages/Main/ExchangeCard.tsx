@@ -32,6 +32,7 @@ const ExchangeItem = styled.div`
   justify-content: center;
   align-items: flex-start;
   background-color: white;
+  border-radius: 10px;
   width: calc(100% - 60px);
   margin: 0 30px;
   padding: 0 25px;

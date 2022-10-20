@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
@@ -9,21 +7,9 @@ import Cursor from "../../assets/Cursor.png";
 import Laptop from "../../assets/Laptop.png";
 import Bar from "../../assets/Content 8.png";
 import ExChange from "./ExChange";
-import { ExchangeProps } from "./ChartData/ChartData";
+import OutfitsResult from "../../components/Outfits/OutfitsResult";
 
 const Main = () => {
-  const [exchangeData, setExchangeData] = useState<ExchangeProps[]>([]);
-
-  useEffect(() => {
-    try {
-      axios
-        .get("http://127.0.0.1:3001/exchange")
-        .then((res) => setExchangeData(res.data.data));
-    } catch {
-      console.log("에러");
-    }
-  }, []);
-
   const clickDown = () => {
     console.log("dd");
   };
@@ -55,12 +41,17 @@ const Main = () => {
             </ChevronBox>
           </MainBox>
         </MainBorder>
+        <OutfitWrap>
+          <OutfitTitle>오늘의 옷차림 추천</OutfitTitle>
+          <OutfitBox>
+            <OutfitsResult />
+          </OutfitBox>
+        </OutfitWrap>
 
         <TodayChartContainer>
           <TodayChartTitle>오늘의 차트 구경</TodayChartTitle>
           <TodayChartBox />
           <TodayChartTitle>오늘의 환율 구경</TodayChartTitle>
-
           <ExChange />
         </TodayChartContainer>
       </MainContainer>
@@ -68,7 +59,6 @@ const Main = () => {
   );
 };
 
-//<Exchange exchangeData={exchangeData} />
 const MainContainer = styled.div``;
 
 const MainBorder = styled.div`
@@ -115,6 +105,7 @@ const CursorImage = styled.img`
   right: 20px;
   z-index: 4;
 `;
+
 const BarImage = styled.img`
   position: absolute;
   width: 350px;
@@ -147,6 +138,11 @@ const TodayChartTitle = styled.p`
   margin: 0 0 30px 300px;
 `;
 
+const OutfitTitle = styled.p`
+  padding: 40px 660px 60px 0;
+  font-size: 28px;
+  font-weight: bold;
+`;
 const ChevronBox = styled.div`
   display: flex;
   justify-content: center;
@@ -160,8 +156,17 @@ const ChevronBox = styled.div`
   }
 `;
 
-const Box = styled.div`
+const OutfitWrap = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.sideColor};
+`;
+
+const OutfitBox = styled.div`
+  width: 1080px;
+  background-color: ${({ theme }) => theme.sideColor};
 `;
 
 export default Main;
